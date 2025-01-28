@@ -36,7 +36,7 @@ class Segment {
         const realTimeSpan = new TimeSpan(realTime.milliseconds / this.segmentTimes.length);
         const gameTimeSpan = new TimeSpan(gameTime.milliseconds / this.segmentTimes.length);
 
-        return new SegmentTime(0, realTimeSpan, gameTimeSpan);
+        return new SegmentTime(NaN, realTimeSpan, gameTimeSpan);
     }
 }
 
