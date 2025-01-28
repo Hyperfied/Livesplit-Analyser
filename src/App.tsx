@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./App.css";
-import Splits from "./Splits";
+import Splits from "./classes/Splits";
 
 function App() {
   const [file, setFile] = useState<File | null>(null);
