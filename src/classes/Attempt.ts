@@ -17,6 +17,26 @@ class Attempt {
         this.gameTime = gameTime;
         this.pauseTime = pauseTime;
     }
+
+    public static fromXML(xml: Element): Attempt {
+        const id = parseInt(xml.getAttribute('id') || 'NaN');
+        const started = new Date(xml.getAttribute('started') || 'Invalid Date');
+        const ended = new Date(xml.getAttribute('ended') || 'Invalid Date');
+
+        const realTimeElement = xml.getElementsByTagName('RealTime');
+        let realTime = new TimeSpan(0);
+        if (realTimeElement.length > 0) { realTime = TimeSpan.parseString(xml.getElementsByTagName('RealTime')[0].textContent || '00:00:00'); }
+        
+        const gameTimeElement = xml.getElementsByTagName('GameTime');
+        let gameTime = new TimeSpan(0);
+        if (gameTimeElement.length > 0) { gameTime = TimeSpan.parseString(xml.getElementsByTagName('GameTime')[0].textContent || '00:00:00'); }
+
+        const pauseTimeElement = xml.getElementsByTagName('PauseTime');
+        let pauseTime = new TimeSpan(0);
+        if (pauseTimeElement.length > 0) { pauseTime = TimeSpan.parseString(xml.getElementsByTagName('PauseTime')[0].textContent || '00:00:00'); }
+
+        return new Attempt(id, started, ended, realTime, gameTime, pauseTime);
+    }
 }
 
 export default Attempt;

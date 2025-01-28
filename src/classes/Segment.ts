@@ -22,6 +22,48 @@ class Segment {
         this.segmentTimes = segmentTimes;
     }
 
+    public static fromXML(xml: Element): Segment {
+        const name = xml.getElementsByTagName('Name')[0].textContent || 'Unknown Segment';
+
+        const bestSegmentElement = xml.getElementsByTagName('BestSegmentTime');
+        let bestSegmentRealTime = new TimeSpan(0);
+        let bestSegmentGameTime = new TimeSpan(0);
+        if (bestSegmentElement.length > 0) {
+            if (bestSegmentElement[0].getElementsByTagName("RealTime").length > 0) { 
+                bestSegmentRealTime = TimeSpan.parseString(bestSegmentElement[0].getElementsByTagName("RealTime")[0].textContent || '00:00:00');
+            }
+
+            if (bestSegmentElement[0].getElementsByTagName("GameTime").length > 0) {
+                bestSegmentGameTime = TimeSpan.parseString(bestSegmentElement[0].getElementsByTagName("GameTime")[0].textContent || '00:00:00');
+            }
+        }
+
+        const pbElement = xml.getElementsByTagName('SplitTimes')[0].getElementsByTagName("SplitTime");
+        let realTimeOnPB = new TimeSpan(0);
+        let gameTimeOnPB = new TimeSpan(0);
+        if (pbElement.length > 0)
+        {
+            if (pbElement[0].getElementsByTagName("RealTime").length > 0) {
+                realTimeOnPB = TimeSpan.parseString(pbElement[0].getElementsByTagName("RealTime")[0].textContent || '00:00:00');
+            }
+
+            if (pbElement[0].getElementsByTagName("GameTime").length > 0) {
+                gameTimeOnPB = TimeSpan.parseString(pbElement[0].getElementsByTagName("GameTime")[0].textContent || '00:00:00');
+            }
+        }
+
+        const segmentTimes: SegmentTime[] = [];
+        const segmentTimesTag = xml.getElementsByTagName('SegmentHistory')[0];
+
+        for (let j = 0; j < segmentTimesTag.children.length; j++) {
+            const segmentTimeElement = segmentTimesTag.children[j];
+
+            segmentTimes.push(SegmentTime.fromXML(segmentTimeElement));
+        }
+
+        return new Segment(name, bestSegmentRealTime, bestSegmentGameTime, realTimeOnPB, gameTimeOnPB, segmentTimes);
+    }
+
     public getSegmentTime(runID: number): SegmentTime | undefined {
         return this.segmentTimes.find((segmentTime) => segmentTime.runID === runID);
     }
