@@ -5,36 +5,68 @@ class TimeSpan{
         this._milliseconds = milliseconds;
     }
 
-    get milliseconds(){
-        return this._milliseconds;
+    get milliseconds() {
+        return this._milliseconds % 1000;
     }
 
     get seconds(){
-        return this._milliseconds / 1000;
+        return Math.floor(this._milliseconds / 1000) % 60;
     }
 
     get minutes(){
-        return this.seconds / 60;
+        return Math.floor(this._milliseconds / (1000 * 60)) % 60;
     }
 
     get hours(){
-        return this.minutes / 60;
+        return Math.floor(this._milliseconds / (1000 * 60 * 60)) % 24;
     }
 
     get days(){
-        return this.hours / 24;
+        return Math.floor(this._milliseconds / (1000 * 60 * 60 * 24)) % 30;
     }
 
     get weeks(){
-        return this.days / 7;
+        return Math.floor(this._milliseconds / (1000 * 60 * 60 * 24 * 7)) % 52;
     }
 
     get months(){
-        return this.days / 30;
+        return Math.floor(this._milliseconds / (1000 * 60 * 60 * 24 * 30)) % 12;
     }
 
     get years(){
-        return this.days / 365;
+        return Math.floor(this._milliseconds / (1000 * 60 * 60 * 24 * 365));
+    }
+
+    get totalMilliseconds(){
+        return this._milliseconds;
+    }
+
+    get totalSeconds(){
+        return this._milliseconds / 1000;
+    }
+
+    get totalMinutes(){
+        return Math.round(this.totalSeconds / 60);
+    }
+
+    get totalHours(){
+        return Math.round(this.totalMinutes / 60);
+    }
+
+    get totalDays(){
+        return Math.round(this.totalHours / 24);
+    }
+
+    get totalWeeks(){
+        return Math.round(this.totalDays / 7);
+    }
+
+    get totalMonths(){
+        return Math.round(this.totalDays / 30);
+    }
+
+    get totalYears(){
+        return Math.round(this.totalDays / 365);
     }
 
     addMilliseconds(milliseconds: number){
@@ -79,11 +111,20 @@ class TimeSpan{
             const secondsParts = parts[2].split(".");
             timeSpan = timeSpan.addSeconds(parseInt(secondsParts[0]));
             if(secondsParts.length > 1){
-                timeSpan = timeSpan.addMilliseconds(parseInt(secondsParts[1])/10000);
+                timeSpan = timeSpan.addMilliseconds(Math.round(parseInt(secondsParts[1])/10000));
             }
         }
 
         return timeSpan;
+    }
+
+    toString(): string {
+        const hours = String(this.hours).padStart(2, '0');
+        const minutes = String(this.minutes).padStart(2, '0');
+        const seconds = String(this.seconds).padStart(2, '0');
+        const milliseconds = String(this.milliseconds).padStart(3, '0');
+
+    return `${hours}:${minutes}:${seconds}.${milliseconds}`;
     }
 }
 
