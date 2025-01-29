@@ -8,6 +8,7 @@
 }
 
 .split-stats-top {
+    padding-top: 5%;
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
@@ -59,5 +60,5 @@
     border: 2px solid black;
     border-radius: 20px;
     width: 85%;
-    height: 90%;
+    height: 80%;
 }
