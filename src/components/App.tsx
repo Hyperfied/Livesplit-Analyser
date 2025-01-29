@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import "./App.css";
-import Splits from "./classes/Splits";
+import Splits from "../classes/Splits";
 
 import UploadSplitsPage from "./UploadSplitsPage";
 import SplitStatsPage from "./SplitStatsPage";
+import NavBar from "./NavBar";
 
 function App() {
   const [file, setFile] = useState<File | null>(null);
@@ -11,6 +12,7 @@ function App() {
 
   return (
     <>
+      <NavBar />
       <UploadSplitsPage setFile={setFile} setSplits={setSplits} file={file} />
       {splits && <SplitStatsPage splits={splits} />}
     </>
