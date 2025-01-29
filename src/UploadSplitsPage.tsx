@@ -42,7 +42,6 @@ function UploadSplitsPage({ setFile, setSplits, file }: UploadSplitsProps) {
         <h1>Select your Splits</h1>
         <form onSubmit={handleSubmit}>
           <input type="file" onChange={handleFileChange} />
-          <br />
           <button type="submit">Analyse</button>
         </form>
       </div>
