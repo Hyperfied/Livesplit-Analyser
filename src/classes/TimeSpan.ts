@@ -118,13 +118,24 @@ class TimeSpan{
         return timeSpan;
     }
 
-    toString(): string {
+    toString(shortened: boolean): string {
         const hours = String(this.hours).padStart(2, '0');
         const minutes = String(this.minutes).padStart(2, '0');
         const seconds = String(this.seconds).padStart(2, '0');
         const milliseconds = String(this.milliseconds).padStart(3, '0');
 
-    return `${hours}:${minutes}:${seconds}.${milliseconds}`;
+        if (shortened) {
+            if (this.hours > 0) {
+                return `${hours}:${minutes}:${seconds}.${milliseconds}`;
+            }
+            else if (this.minutes > 0) {
+                return `${minutes}:${seconds}.${milliseconds}`;
+            } else {
+                return `${seconds}.${milliseconds}`;
+            }
+        } else {
+            return `${hours}:${minutes}:${seconds}:${milliseconds}`;
+        }
     }
 }
 
