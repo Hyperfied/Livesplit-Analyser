@@ -67,7 +67,8 @@ class Splits {
             attempts.push(attempt);
         }
 
-        let sumOfBest = new SegmentTime(NaN, new TimeSpan(0), new TimeSpan(0));
+        let sumOfBestRealTime = new TimeSpan(0);
+        let sumOfBestGameTime = new TimeSpan(0);
 
         const segments: Segment[] = [];
         const segmentsTag = xml.getElementsByTagName('Segments')[0];
@@ -77,11 +78,15 @@ class Splits {
 
             const segment = Segment.fromXML(segmentElement);
 
-            sumOfBest.realTime.addMilliseconds(segment.bestSegmentRealTime.milliseconds);
-            sumOfBest.gameTime.addMilliseconds(segment.bestSegmentGameTime.milliseconds);
+            sumOfBestRealTime.addMilliseconds(segment.bestSegmentRealTime.totalMilliseconds);
+            sumOfBestGameTime.addMilliseconds(segment.bestSegmentGameTime.totalMilliseconds);
+
+            console.log(sumOfBestRealTime)
 
             segments.push(segment);
         }
+
+        let sumOfBest = new SegmentTime(NaN, sumOfBestRealTime, sumOfBestGameTime);
 
         return new Splits(gameName, category, platform, usesEmulator, region, offset, attempts, segments, personalBest, sumOfBest);
     }

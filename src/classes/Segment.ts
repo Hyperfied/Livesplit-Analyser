@@ -72,8 +72,8 @@ class Segment {
         let realTime = new TimeSpan(0);
         let gameTime = new TimeSpan(0);
         for (let segmentTime of this.segmentTimes) {
-            realTime = realTime.addMilliseconds(segmentTime.realTime.totalMilliseconds);
-            gameTime = gameTime.addMilliseconds(segmentTime.gameTime.totalMilliseconds);
+            realTime.addMilliseconds(segmentTime.realTime.totalMilliseconds);
+            gameTime.addMilliseconds(segmentTime.gameTime.totalMilliseconds);
         }
         const realTimeSpan = new TimeSpan(realTime.totalMilliseconds / this.segmentTimes.length);
         const gameTimeSpan = new TimeSpan(gameTime.totalMilliseconds / this.segmentTimes.length);

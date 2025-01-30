@@ -70,7 +70,7 @@ class TimeSpan{
     }
 
     addMilliseconds(milliseconds: number){
-        return new TimeSpan(this._milliseconds + milliseconds);
+        this._milliseconds += milliseconds;
     }
 
     addSeconds(seconds: number){
@@ -106,12 +106,12 @@ class TimeSpan{
         var timeSpan = new TimeSpan(0);
 
         if(parts.length > 0){
-            timeSpan = timeSpan.addHours(parseInt(parts[0]));
-            timeSpan = timeSpan.addMinutes(parseInt(parts[1]));
+            timeSpan.addHours(parseInt(parts[0]));
+            timeSpan.addMinutes(parseInt(parts[1]));
             const secondsParts = parts[2].split(".");
-            timeSpan = timeSpan.addSeconds(parseInt(secondsParts[0]));
+            timeSpan.addSeconds(parseInt(secondsParts[0]));
             if(secondsParts.length > 1){
-                timeSpan = timeSpan.addMilliseconds(Math.round(parseInt(secondsParts[1])/10000));
+                timeSpan.addMilliseconds(Math.round(parseInt(secondsParts[1])/10000));
             }
         }
 

@@ -14,7 +14,7 @@ function SplitStatsPage({ splits }: SplitStatsPageProps) {
           <h1>{splits.gameName}</h1>
           <h2>{splits.category}</h2>
           <div className="split-stats-times">
-            {splits.personalBest.gameTime.milliseconds > 0 && (
+            {splits.personalBest.gameTime.totalMilliseconds > 0 && (
               <div className="split-stats-time">
                 <h1>{splits.personalBest.gameTime.toString(true)}</h1>
                 <h2>Game Time</h2>
@@ -27,7 +27,7 @@ function SplitStatsPage({ splits }: SplitStatsPageProps) {
           </div>
           <div className="split-stats-time">
             <h1>
-              {splits.personalBest.gameTime.milliseconds > 0
+              {splits.personalBest.gameTime.totalMilliseconds > 0
                 ? splits.sumOfBest.gameTime.toString(true)
                 : splits.sumOfBest.realTime.toString(true)}
             </h1>
