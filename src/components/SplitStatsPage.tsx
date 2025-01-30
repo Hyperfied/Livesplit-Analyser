@@ -2,8 +2,8 @@ import "./SplitStatsPage.css";
 import React from "react";
 import Splits from "../classes/Splits";
 
-import SplitStatsMainStats from "./SplitsStatsMainStats";
-import SplitStatsSideStats from "./SplitStatsSideStats";
+import SplitStatsMainPanelStats from "./SplitsStatsMainStatsPanel";
+import SplitStatsSidePanelStats from "./SplitStatsSideStatsPanel";
 import SplitStatsGraphPanel from "./SplitsStatsGraphsPanel";
 
 interface SplitStatsPageProps {
@@ -12,10 +12,10 @@ interface SplitStatsPageProps {
 
 function SplitStatsPage({ splits }: SplitStatsPageProps) {
   return (
-    <div className={`split-stats-page`}>
+    <div className={`split-stats-page`} id="statspage">
       <div className="split-stats-top">
-        <SplitStatsMainStats splits={splits} />
-        <SplitStatsSideStats splits={splits} />
+        <SplitStatsMainPanelStats splits={splits} />
+        <SplitStatsSidePanelStats splits={splits} />
       </div>
       <div className="split-stats-bottom">
         <SplitStatsGraphPanel splits={splits} />

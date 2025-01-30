@@ -1,11 +1,11 @@
 import "./SplitStatsPage.css";
 import Splits from "../classes/Splits";
 
-interface SplitStatsMainStatsProps {
+interface SplitStatsMainStatsPanelProps {
   splits: Splits;
 }
 
-function SplitStatsMainStats({ splits }: SplitStatsMainStatsProps) {
+function SplitStatsMainStatsPanel({ splits }: SplitStatsMainStatsPanelProps) {
   return (
     <div className="split-stats-main">
       <h1>{splits.gameName}</h1>
@@ -34,4 +34,4 @@ function SplitStatsMainStats({ splits }: SplitStatsMainStatsProps) {
   );
 }
 
-export default SplitStatsMainStats;
+export default SplitStatsMainStatsPanel;

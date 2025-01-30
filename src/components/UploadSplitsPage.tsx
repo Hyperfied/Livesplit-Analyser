@@ -6,9 +6,15 @@ interface UploadSplitsProps {
   setFile: React.Dispatch<React.SetStateAction<File | null>>;
   setSplits: React.Dispatch<React.SetStateAction<Splits | null>>;
   file: File | null;
+  scrollToStats: Function;
 }
 
-function UploadSplitsPage({ setFile, setSplits, file }: UploadSplitsProps) {
+function UploadSplitsPage({
+  setFile,
+  setSplits,
+  file,
+  scrollToStats,
+}: UploadSplitsProps) {
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files) {
       setFile(event.target.files[0]);
@@ -33,6 +39,7 @@ function UploadSplitsPage({ setFile, setSplits, file }: UploadSplitsProps) {
         }
       };
       reader.readAsText(file);
+      scrollToStats();
     }
   };
 

@@ -4,11 +4,11 @@ import Splits from "../classes/Splits";
 
 import SplitStatsStat from "./SplitStatsStat";
 
-interface SplitStatsSideStatsProps {
+interface SplitStatsSideStatsPanelProps {
   splits: Splits;
 }
 
-function SplitStatsSideStats({ splits }: SplitStatsSideStatsProps) {
+function SplitStatsSideStatsPanel({ splits }: SplitStatsSideStatsPanelProps) {
   return (
     <div className="split-stats-side">
       <h1>Stats</h1>
@@ -44,4 +44,4 @@ function SplitStatsSideStats({ splits }: SplitStatsSideStatsProps) {
   );
 }
 
-export default SplitStatsSideStats;
+export default SplitStatsSideStatsPanel;
