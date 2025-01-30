@@ -16,14 +16,22 @@ function SplitStatsPage({ splits }: SplitStatsPageProps) {
           <div className="split-stats-times">
             {splits.personalBest.gameTime.milliseconds > 0 && (
               <div className="split-stats-time">
-                <h1>{splits.personalBest.gameTime.toString()}</h1>
+                <h1>{splits.personalBest.gameTime.toString(true)}</h1>
                 <h2>Game Time</h2>
               </div>
             )}
             <div className="split-stats-time">
-              <h1>{splits.personalBest.realTime.toString()}</h1>
+              <h1>{splits.personalBest.realTime.toString(true)}</h1>
               <h2>Real Time</h2>
             </div>
+          </div>
+          <div className="split-stats-time">
+            <h1>
+              {splits.personalBest.gameTime.milliseconds > 0
+                ? splits.sumOfBest.gameTime.toString(true)
+                : splits.sumOfBest.realTime.toString(true)}
+            </h1>
+            <h2>Sum of Best</h2>
           </div>
         </div>
         <div className="split-stats-side">
