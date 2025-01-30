@@ -15,7 +15,10 @@ class Splits {
     public attempts: Attempt[];
     public segments: Segment[];
 
-    constructor(gameName: string, category: string, platform: string, usesEmulator: boolean, region: string, offset: TimeSpan, attempts: Attempt[], segments: Segment[]) {
+    public personalBest: SegmentTime;
+    public sumOfBest: SegmentTime;
+
+    constructor(gameName: string, category: string, platform: string, usesEmulator: boolean, region: string, offset: TimeSpan, attempts: Attempt[], segments: Segment[], personalBest: SegmentTime, sumOfBest: SegmentTime) {
         this.gameName = gameName;
         this.category = category;
         this.platform = platform;
@@ -24,6 +27,9 @@ class Splits {
         this.offset = offset;
         this.attempts = attempts;
         this.segments = segments;
+
+        this.personalBest = personalBest;
+        this.sumOfBest = sumOfBest;
     }
 
     public static fromXML (xml: Document): Splits {
@@ -39,10 +45,29 @@ class Splits {
         const attempts: Attempt[] = [];
         const attemptsTag = xml.getElementsByTagName('AttemptHistory')[0];
 
+        let personalBest = new SegmentTime(NaN, new TimeSpan(999999999999), new TimeSpan(999999999999));
+
         for (let i = 0; i < attemptsTag.children.length; i++) {
             const attemptElement = attemptsTag.children[i];
-            attempts.push(Attempt.fromXML(attemptElement));
+
+            const attempt = Attempt.fromXML(attemptElement);
+            if (attempt.gameTime.milliseconds > 0) {
+                if (attempt.gameTime.milliseconds < personalBest.gameTime.milliseconds) {
+                    personalBest.gameTime = attempt.gameTime;
+                    personalBest.realTime = attempt.realTime;
+                }
+            }
+            else if (attempt.realTime.milliseconds > 0) {
+                if (attempt.realTime.milliseconds < personalBest.realTime.milliseconds) {
+                    personalBest.gameTime = attempt.gameTime;
+                    personalBest.realTime = attempt.realTime;
+                }
+            }
+
+            attempts.push(attempt);
         }
+
+        let sumOfBest = new SegmentTime(NaN, new TimeSpan(0), new TimeSpan(0));
 
         const segments: Segment[] = [];
         const segmentsTag = xml.getElementsByTagName('Segments')[0];
@@ -50,10 +75,15 @@ class Splits {
         for (let i = 0; i < segmentsTag.children.length; i++) {
             const segmentElement = segmentsTag.children[i];
 
-            segments.push(Segment.fromXML(segmentElement));
+            const segment = Segment.fromXML(segmentElement);
+
+            sumOfBest.realTime.addMilliseconds(segment.bestSegmentRealTime.milliseconds);
+            sumOfBest.gameTime.addMilliseconds(segment.bestSegmentGameTime.milliseconds);
+
+            segments.push(segment);
         }
 
-        return new Splits(gameName, category, platform, usesEmulator, region, offset, attempts, segments);
+        return new Splits(gameName, category, platform, usesEmulator, region, offset, attempts, segments, personalBest, sumOfBest);
     }
 }
 

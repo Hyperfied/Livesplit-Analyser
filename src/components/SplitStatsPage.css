@@ -7,6 +7,10 @@
     justify-content: space-evenly;
 }
 
+.split-stats-page h2 {
+    font-weight: normal;
+}
+
 .split-stats-top {
     padding-top: 5%;
     display: flex;
