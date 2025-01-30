@@ -118,19 +118,26 @@ class TimeSpan{
         return timeSpan;
     }
 
-    toString(shortened: boolean): string {
-        const hours = String(this.hours).padStart(2, '0');
-        const minutes = String(this.minutes).padStart(2, '0');
-        const seconds = String(this.seconds).padStart(2, '0');
-        const milliseconds = String(this.milliseconds).padStart(3, '0');
+    toString(shortened: boolean, asWords: boolean): string {
+        const hours = String(this.hours).padStart(asWords ? 0 : 2, '0');
+        const minutes = String(this.minutes).padStart(asWords ? 0 : 2, '0');
+        const seconds = String(this.seconds).padStart(asWords ? 0 : 2, '0');
+        const milliseconds = String(this.milliseconds).padStart(asWords ? 0 : 3, '0');
 
         if (shortened) {
-            if (this.hours > 0) {
+            if (this.days > 0) {
+                if (asWords) { return `${this.days} days, ${hours} hours, ${minutes} minutes`; }
+                return `${this.days}:${hours}:${minutes}`;
+            }
+            else if (this.hours > 0) {
+                if (asWords) { return `${hours} hours, ${minutes} minutes`; }
                 return `${hours}:${minutes}:${seconds}.${milliseconds}`;
             }
             else if (this.minutes > 0) {
+                if (asWords) { return `${minutes} minutes, ${seconds} seconds`; }
                 return `${minutes}:${seconds}.${milliseconds}`;
             } else {
+                if (asWords) { return `${seconds}.${milliseconds} seconds`; }
                 return `${seconds}.${milliseconds}`;
             }
         } else {

@@ -18,7 +18,18 @@ class Splits {
     public personalBest: SegmentTime;
     public sumOfBest: SegmentTime;
 
-    constructor(gameName: string, category: string, platform: string, usesEmulator: boolean, region: string, offset: TimeSpan, attempts: Attempt[], segments: Segment[], personalBest: SegmentTime, sumOfBest: SegmentTime) {
+    public totalTimePlayed: TimeSpan;
+
+    public runsCompleted: number;
+    public runsNotCompleted: number
+
+    public firstRunDate: Date;
+    public latestRunDate: Date;
+    public pbRunDate: Date;
+
+    constructor(gameName: string, category: string, platform: string, usesEmulator: boolean, region: string, offset: TimeSpan, attempts: Attempt[], segments: Segment[], 
+        personalBest: SegmentTime, sumOfBest: SegmentTime, totalTimePlayed: TimeSpan, runsCompleted: number, runsNotCompleted: number, firstRunDate: Date, 
+        latestRunDate: Date, pbRunDate: Date) {
         this.gameName = gameName;
         this.category = category;
         this.platform = platform;
@@ -30,6 +41,15 @@ class Splits {
 
         this.personalBest = personalBest;
         this.sumOfBest = sumOfBest;
+
+        this.totalTimePlayed = totalTimePlayed;
+
+        this.runsCompleted = runsCompleted;
+        this.runsNotCompleted = runsNotCompleted;
+
+        this.firstRunDate = firstRunDate;
+        this.latestRunDate = latestRunDate;
+        this.pbRunDate = pbRunDate;
     }
 
     public static fromXML (xml: Document): Splits {
@@ -47,22 +67,48 @@ class Splits {
 
         let personalBest = new SegmentTime(NaN, new TimeSpan(999999999999), new TimeSpan(999999999999));
 
+        let totalTimePlayed = new TimeSpan(0);
+
+        let runsCompleted = 0;
+        let runsNotCompleted = 0;
+
+        let firstRunDate = new Date();
+        let latestRunDate = new Date();
+        let pbRunDate = new Date();
+
         for (let i = 0; i < attemptsTag.children.length; i++) {
             const attemptElement = attemptsTag.children[i];
-
             const attempt = Attempt.fromXML(attemptElement);
-            if (attempt.gameTime.milliseconds > 0) {
-                if (attempt.gameTime.milliseconds < personalBest.gameTime.milliseconds) {
+
+            if (attempt.gameTime.totalMilliseconds > 0) {
+                if (attempt.gameTime.totalMilliseconds < personalBest.gameTime.totalMilliseconds) {
                     personalBest.gameTime = attempt.gameTime;
                     personalBest.realTime = attempt.realTime;
+                    pbRunDate = attempt.started;
                 }
             }
-            else if (attempt.realTime.milliseconds > 0) {
-                if (attempt.realTime.milliseconds < personalBest.realTime.milliseconds) {
+            else if (attempt.realTime.totalMilliseconds > 0) {
+                if (attempt.realTime.totalMilliseconds < personalBest.realTime.totalMilliseconds) {
                     personalBest.gameTime = attempt.gameTime;
                     personalBest.realTime = attempt.realTime;
+                    pbRunDate = attempt.started;
                 }
             }
+
+            if (attempt.id == 0) {
+                firstRunDate = attempt.started;
+            }
+
+            if (attempt.id == attemptsTag.children.length - 1) {
+                latestRunDate = attempt.started;
+            }
+
+            if (attempt.realTime.totalMilliseconds > 0 || attempt.gameTime.totalMilliseconds > 0) { runsCompleted++; }
+            else { runsNotCompleted++; }
+
+            const dateDelta = attempt.ended.getTime() - attempt.started.getTime();
+
+            totalTimePlayed.addMilliseconds(dateDelta - attempt.pauseTime.totalMilliseconds);
 
             attempts.push(attempt);
         }
@@ -81,14 +127,13 @@ class Splits {
             sumOfBestRealTime.addMilliseconds(segment.bestSegmentRealTime.totalMilliseconds);
             sumOfBestGameTime.addMilliseconds(segment.bestSegmentGameTime.totalMilliseconds);
 
-            console.log(sumOfBestRealTime)
-
             segments.push(segment);
         }
 
         let sumOfBest = new SegmentTime(NaN, sumOfBestRealTime, sumOfBestGameTime);
 
-        return new Splits(gameName, category, platform, usesEmulator, region, offset, attempts, segments, personalBest, sumOfBest);
+        return new Splits(gameName, category, platform, usesEmulator, region, offset, attempts, segments, personalBest, sumOfBest, totalTimePlayed, 
+            runsCompleted, runsNotCompleted, firstRunDate, latestRunDate, pbRunDate);
     }
 }
 
