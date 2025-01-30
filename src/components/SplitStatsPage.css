@@ -16,6 +16,12 @@
 .split-stats-page h2 {
     margin-top: 0;
     font-size: 1.5em;
+    font-weight: bold;
+}
+
+.split-stats-page h3 {
+    margin-top: 0;
+    font-size: 1.3em;
     font-weight: normal;
 }
 
@@ -73,6 +79,15 @@
     width: 40%;
     height: 90%;
 
+}
+
+.split-stats-stat {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+
+    width: 90%;
 }
 
 .split-stats-bottom {
