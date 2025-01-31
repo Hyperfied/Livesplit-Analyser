@@ -164,8 +164,14 @@ class Splits {
                     currentPB = attempt.gameTime;
                     
                     data.push({
-                        name: attempt.id,
-                        time: currentPB.totalMilliseconds
+                        Date: attempt.started.toLocaleDateString(),
+                        Time: currentPB.totalMilliseconds
+                    });
+                }
+                else {
+                    data.push({
+                        Date: attempt.started.toLocaleDateString(),
+                        Time: null
                     });
                 }
             }
@@ -174,8 +180,14 @@ class Splits {
                     currentPB = attempt.realTime;
 
                     data.push({
-                        name: attempt.id,
-                        time: currentPB.totalMilliseconds
+                        Date: attempt.started.toLocaleDateString(),
+                        Time: currentPB.totalMilliseconds
+                    });
+                }
+                else {
+                    data.push({
+                        Date: attempt.started.toLocaleDateString(),
+                        Time: null
                     });
                 }
             }
