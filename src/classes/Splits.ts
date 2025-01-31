@@ -135,6 +135,13 @@ class Splits {
         return new Splits(gameName, category, platform, usesEmulator, region, offset, attempts, segments, personalBest, sumOfBest, totalTimePlayed, 
             runsCompleted, runsNotCompleted, firstRunDate, latestRunDate, pbRunDate);
     }
+
+    public getGraphData(type: string, useGameTime: boolean): any[] {
+        const data: any[] = [];
+
+        return data;
+    }
+
 }
 
 export default Splits;

@@ -9,6 +9,7 @@ import NavBar from "./NavBar";
 function App() {
   const [file, setFile] = useState<File | null>(null);
   const [splits, setSplits] = useState<Splits | null>(null);
+  const [useGameTime, setUseGameTime] = useState<boolean>(false);
 
   const scrollToStats = () => {
     setTimeout(function () {
@@ -27,8 +28,9 @@ function App() {
         setSplits={setSplits}
         file={file}
         scrollToStats={scrollToStats}
+        setUseGameTime={setUseGameTime}
       />
-      {splits && <SplitStatsPage splits={splits} />}
+      {splits && <SplitStatsPage splits={splits} useGameTime={useGameTime} />}
     </>
   );
 }

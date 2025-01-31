@@ -3,15 +3,19 @@ import Splits from "../classes/Splits";
 
 interface SplitStatsMainStatsPanelProps {
   splits: Splits;
+  useGameTime: boolean;
 }
 
-function SplitStatsMainStatsPanel({ splits }: SplitStatsMainStatsPanelProps) {
+function SplitStatsMainStatsPanel({
+  splits,
+  useGameTime,
+}: SplitStatsMainStatsPanelProps) {
   return (
     <div className="split-stats-main">
       <h1>{splits.gameName}</h1>
       <h2>{splits.category}</h2>
       <div className="split-stats-times">
-        {splits.personalBest.gameTime.totalMilliseconds > 0 && (
+        {useGameTime && (
           <div className="split-stats-time">
             <h1>{splits.personalBest.gameTime.toString(true, false)}</h1>
             <h3>Game Time</h3>
@@ -24,7 +28,7 @@ function SplitStatsMainStatsPanel({ splits }: SplitStatsMainStatsPanelProps) {
       </div>
       <div className="split-stats-time">
         <h1>
-          {splits.personalBest.gameTime.totalMilliseconds > 0
+          {useGameTime
             ? splits.sumOfBest.gameTime.toString(true, false)
             : splits.sumOfBest.realTime.toString(true, false)}
         </h1>

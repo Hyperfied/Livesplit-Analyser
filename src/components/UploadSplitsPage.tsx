@@ -7,6 +7,7 @@ interface UploadSplitsProps {
   setSplits: React.Dispatch<React.SetStateAction<Splits | null>>;
   file: File | null;
   scrollToStats: Function;
+  setUseGameTime: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 function UploadSplitsPage({
@@ -14,6 +15,7 @@ function UploadSplitsPage({
   setSplits,
   file,
   scrollToStats,
+  setUseGameTime,
 }: UploadSplitsProps) {
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files) {
@@ -28,14 +30,14 @@ function UploadSplitsPage({
       const reader = new FileReader();
       reader.onload = (e) => {
         if (e.target && e.target.result) {
-          setSplits(
-            Splits.fromXML(
-              new DOMParser().parseFromString(
-                e.target.result as string,
-                "text/xml"
-              )
+          const splits = Splits.fromXML(
+            new DOMParser().parseFromString(
+              e.target.result as string,
+              "text/xml"
             )
           );
+          setSplits(splits);
+          setUseGameTime(splits.personalBest.gameTime.totalMilliseconds > 0);
         }
       };
       reader.readAsText(file);
