@@ -137,7 +137,49 @@ class Splits {
     }
 
     public getGraphData(type: string, useGameTime: boolean): any[] {
+
+        switch (type) {
+            case 'pb':
+                return this.getPersonalBestGraphData(useGameTime);
+            // case 'sob':
+            //     return this.getSumOfBestGraphData(useGameTime);
+            // case 'wr':
+            //     return this.getWorldRecordGraphData(useGameTime);
+            default:
+                console.log("Got no Graph Data");
+                return [];
+        }
+    }
+
+    private getPersonalBestGraphData(useGameTime: boolean): any[] {
         const data: any[] = [];
+        
+        let currentPB = new TimeSpan(99999999999);
+
+        for (let i = 0; i < this.attempts.length; i++) {
+            const attempt = this.attempts[i];
+
+            if (useGameTime) {
+                if (attempt.gameTime.totalMilliseconds < currentPB.totalMilliseconds && attempt.gameTime.totalMilliseconds > 0) {
+                    currentPB = attempt.gameTime;
+                    
+                    data.push({
+                        name: attempt.id,
+                        time: currentPB.totalMilliseconds
+                    });
+                }
+            }
+            else {
+                if (attempt.realTime.totalMilliseconds < currentPB.totalMilliseconds && attempt.realTime.totalMilliseconds > 0) {
+                    currentPB = attempt.realTime;
+
+                    data.push({
+                        name: attempt.id,
+                        time: currentPB.totalMilliseconds
+                    });
+                }
+            }
+        }
 
         return data;
     }
