@@ -175,8 +175,8 @@ class Splits {
                 return this.getPersonalBestGraphData(useGameTime);
             case 'sob':
                 return this.getSumOfBestGraphData(useGameTime);
-            // case 'wr':
-            //     return this.getWorldRecordGraphData(useGameTime);
+            case 'playtime':
+                return this.getPlaytimeGraphData();
             default:
                 console.log("Got no Graph Data");
                 return [];
@@ -268,6 +268,21 @@ class Splits {
                     Time: time
                 });
             }
+        }
+
+        return data;
+    }
+
+    private getPlaytimeGraphData(): any[] {
+        const data: any[] = [];
+
+        for (let i = 0; i < this.attempts.length; i++) {
+            const attempt = this.attempts[i];
+
+            data.push({
+                Date: attempt.started.toLocaleDateString(),
+                Time: attempt.getAttemptDuration().totalMilliseconds
+            })
         }
 
         return data;
