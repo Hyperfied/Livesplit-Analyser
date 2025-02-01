@@ -42,7 +42,17 @@ function PersonalBestGraph({ splits, useGameTime }: PersonalBestGraphProps) {
         <XAxis dataKey="Date">
           <Label value="Date" offset={-20} position="insideBottom" />
         </XAxis>
-        <YAxis tick={<TimeSpanTick />} />
+        <YAxis
+          tick={<TimeSpanTick />}
+          domain={[
+            useGameTime
+              ? Math.round(splits.personalBest.gameTime.totalMilliseconds * 0.8)
+              : Math.round(
+                  splits.personalBest.realTime.totalMilliseconds * 0.8
+                ),
+            splits.firstTime.totalMilliseconds,
+          ]}
+        />
         <Tooltip content={<TimeSpanTooltip />} />
       </LineChart>
     </ResponsiveContainer>
