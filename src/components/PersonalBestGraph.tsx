@@ -8,7 +8,6 @@ import {
   YAxis,
   Tooltip,
   TooltipProps,
-  ZAxis,
 } from "recharts";
 import Splits from "../classes/Splits";
 import { FunctionComponent } from "react";
