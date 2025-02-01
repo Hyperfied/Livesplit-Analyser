@@ -37,6 +37,11 @@ class Attempt {
 
         return new Attempt(id, started, ended, realTime, gameTime, pauseTime);
     }
+
+    public getAttemptDuration(): TimeSpan {
+        const duration = this.ended.getTime() - this.started.getTime();
+        return new TimeSpan(duration);
+    }
 }
 
 export default Attempt;

@@ -9,9 +9,9 @@ import {
   Tooltip,
   TooltipProps,
 } from "recharts";
-import Splits from "../classes/Splits";
+import Splits from "../../classes/Splits";
 import { FunctionComponent } from "react";
-import TimeSpan from "../classes/TimeSpan";
+import TimeSpan from "../../classes/TimeSpan";
 import {
   NameType,
   ValueType,
@@ -19,16 +19,16 @@ import {
 
 import "./SplitGraphs.css";
 
-interface PersonalBestGraphProps {
+interface SumOfBestProps {
   splits: Splits;
   useGameTime: boolean;
 }
 
-function PersonalBestGraph({ splits, useGameTime }: PersonalBestGraphProps) {
+function SumOfBestGraph({ splits, useGameTime }: SumOfBestProps) {
   return (
     <ResponsiveContainer width="90%" height="70%">
       <LineChart
-        data={splits.getGraphData("pb", useGameTime)}
+        data={splits.getGraphData("sob", useGameTime)}
         {...{ overflow: "visible" }}
       >
         <Line
@@ -36,7 +36,7 @@ function PersonalBestGraph({ splits, useGameTime }: PersonalBestGraphProps) {
           type="monotone"
           dataKey="Time"
           stroke="#8884d8"
-          dot={{ r: 5 }}
+          dot={{ r: 1 }}
         />
         <CartesianGrid stroke="#ccc" />
         <XAxis dataKey="Date">
@@ -46,10 +46,8 @@ function PersonalBestGraph({ splits, useGameTime }: PersonalBestGraphProps) {
           tick={<TimeSpanTick />}
           domain={[
             useGameTime
-              ? Math.round(splits.personalBest.gameTime.totalMilliseconds * 0.8)
-              : Math.round(
-                  splits.personalBest.realTime.totalMilliseconds * 0.8
-                ),
+              ? Math.round(splits.sumOfBest.gameTime.totalMilliseconds)
+              : Math.round(splits.sumOfBest.realTime.totalMilliseconds),
             splits.firstTime.totalMilliseconds,
           ]}
         />
@@ -92,4 +90,4 @@ const TimeSpanTooltip = ({
   return null;
 };
 
-export default PersonalBestGraph;
+export default SumOfBestGraph;

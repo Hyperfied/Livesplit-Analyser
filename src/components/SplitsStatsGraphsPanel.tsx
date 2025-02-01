@@ -1,10 +1,11 @@
 import { useState } from "react";
 import Splits from "../classes/Splits";
 
-import PersonalBestGraph from "./PersonalBestGraph";
-import SumOfBestGraph from "./SumOfBestGraph";
+import PersonalBestGraph from "./Graphs/PersonalBestGraph";
+import SumOfBestGraph from "./Graphs/SumOfBestGraph";
 
 import "./SplitStatsPage.css";
+import PlaytimeGraph from "./Graphs/PlaytimeGraph";
 
 interface SplitStatsGraphsPanelProps {
   splits: Splits;
@@ -29,8 +30,7 @@ function SplitStatsGraphPanel({
           <select id="graphSelect" onChange={onSelect}>
             <option value="pb">Personal Best over Time</option>
             <option value="sob">Sum of Best over Time</option>
-            <option value="reset">Reset Times</option>
-            <option value="wr">Playtime over Time</option>
+            <option value="playtime">Playtime over Time</option>
           </select>
         </form>
         <h1>Graphs</h1>
@@ -40,6 +40,9 @@ function SplitStatsGraphPanel({
       )}
       {graphType === "sob" && (
         <SumOfBestGraph splits={splits} useGameTime={useGameTime} />
+      )}
+      {graphType === "playtime" && (
+        <PlaytimeGraph splits={splits} useGameTime={useGameTime} />
       )}
     </div>
   );
