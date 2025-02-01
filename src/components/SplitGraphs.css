@@ -1,0 +1,8 @@
+.timespan-tooltip {
+    background-color: whitesmoke;
+    padding: 5px;
+
+    .label {
+        font-weight: bold;
+    }
+}
