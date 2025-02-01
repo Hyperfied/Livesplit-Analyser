@@ -48,7 +48,7 @@ function SumOfBestGraph({ splits, useGameTime }: SumOfBestProps) {
             useGameTime
               ? Math.round(splits.sumOfBest.gameTime.totalMilliseconds)
               : Math.round(splits.sumOfBest.realTime.totalMilliseconds),
-            splits.firstTime.totalMilliseconds,
+            "auto",
           ]}
         />
         <Tooltip content={<TimeSpanTooltip />} />
