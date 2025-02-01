@@ -36,7 +36,7 @@ function SumOfBestGraph({ splits, useGameTime }: SumOfBestProps) {
           type="monotone"
           dataKey="Time"
           stroke="#8884d8"
-          dot={{ r: 5 }}
+          dot={{ r: 1 }}
         />
         <CartesianGrid stroke="#ccc" />
         <XAxis dataKey="Date">
@@ -46,10 +46,8 @@ function SumOfBestGraph({ splits, useGameTime }: SumOfBestProps) {
           tick={<TimeSpanTick />}
           domain={[
             useGameTime
-              ? Math.round(splits.personalBest.gameTime.totalMilliseconds * 0.8)
-              : Math.round(
-                  splits.personalBest.realTime.totalMilliseconds * 0.8
-                ),
+              ? Math.round(splits.sumOfBest.gameTime.totalMilliseconds)
+              : Math.round(splits.sumOfBest.realTime.totalMilliseconds),
             splits.firstTime.totalMilliseconds,
           ]}
         />
