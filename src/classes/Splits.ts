@@ -27,9 +27,11 @@ class Splits {
     public latestRunDate: Date;
     public pbRunDate: Date;
 
+    public firstTime: TimeSpan;
+
     constructor(gameName: string, category: string, platform: string, usesEmulator: boolean, region: string, offset: TimeSpan, attempts: Attempt[], segments: Segment[], 
         personalBest: SegmentTime, sumOfBest: SegmentTime, totalTimePlayed: TimeSpan, runsCompleted: number, runsNotCompleted: number, firstRunDate: Date, 
-        latestRunDate: Date, pbRunDate: Date) {
+        latestRunDate: Date, pbRunDate: Date, firstTime: TimeSpan) {
         this.gameName = gameName;
         this.category = category;
         this.platform = platform;
@@ -50,6 +52,8 @@ class Splits {
         this.firstRunDate = firstRunDate;
         this.latestRunDate = latestRunDate;
         this.pbRunDate = pbRunDate;
+
+        this.firstTime = firstTime
     }
 
     public static fromXML (xml: Document): Splits {
@@ -76,11 +80,17 @@ class Splits {
         let latestRunDate = new Date();
         let pbRunDate = new Date();
 
+        let firstTime = new TimeSpan(0);
+
         for (let i = 0; i < attemptsTag.children.length; i++) {
             const attemptElement = attemptsTag.children[i];
             const attempt = Attempt.fromXML(attemptElement);
 
             if (attempt.gameTime.totalMilliseconds > 0) {
+                if (firstTime.totalMilliseconds == 0) {
+                    firstTime = attempt.gameTime;
+                }
+
                 if (attempt.gameTime.totalMilliseconds < personalBest.gameTime.totalMilliseconds) {
                     personalBest.gameTime = attempt.gameTime;
                     personalBest.realTime = attempt.realTime;
@@ -88,6 +98,10 @@ class Splits {
                 }
             }
             else if (attempt.realTime.totalMilliseconds > 0) {
+                if (firstTime.totalMilliseconds == 0) {
+                    firstTime = attempt.gameTime;
+                }
+
                 if (attempt.realTime.totalMilliseconds < personalBest.realTime.totalMilliseconds) {
                     personalBest.gameTime = attempt.gameTime;
                     personalBest.realTime = attempt.realTime;
@@ -133,7 +147,25 @@ class Splits {
         let sumOfBest = new SegmentTime(NaN, sumOfBestRealTime, sumOfBestGameTime);
 
         return new Splits(gameName, category, platform, usesEmulator, region, offset, attempts, segments, personalBest, sumOfBest, totalTimePlayed, 
-            runsCompleted, runsNotCompleted, firstRunDate, latestRunDate, pbRunDate);
+            runsCompleted, runsNotCompleted, firstRunDate, latestRunDate, pbRunDate, firstTime);
+    }
+
+    private getAttemptSegments(attempt: Attempt): SegmentTime[] {
+        const segments: SegmentTime[] = [];
+
+        for (let i = 0; i < this.segments.length; i++) {
+            const segment = this.segments[i];
+            const segmentTime = segment.getSegmentTime(attempt.id);
+
+            if (segmentTime) {
+                segments.push(segmentTime);
+            }
+            else {
+                segments.push(new SegmentTime(NaN, new TimeSpan(0), new TimeSpan(0)));
+            }
+        }
+
+        return segments;
     }
 
     public getGraphData(type: string, useGameTime: boolean): any[] {
@@ -141,8 +173,8 @@ class Splits {
         switch (type) {
             case 'pb':
                 return this.getPersonalBestGraphData(useGameTime);
-            // case 'sob':
-            //     return this.getSumOfBestGraphData(useGameTime);
+            case 'sob':
+                return this.getSumOfBestGraphData(useGameTime);
             // case 'wr':
             //     return this.getWorldRecordGraphData(useGameTime);
             default:
@@ -190,6 +222,51 @@ class Splits {
                         Time: null
                     });
                 }
+            }
+        }
+
+        return data;
+    }
+
+    private getSumOfBestGraphData(useGameTime: boolean): any[] {
+
+        const data: any[] = [];
+        
+        let bestSegments : SegmentTime[] = [];
+
+        for (let i = 0; i < this.attempts.length; i++) {
+            const attempt = this.attempts[i];
+            const attemptSegments = this.getAttemptSegments(attempt);
+
+            for (let j = 0; j < attemptSegments.length; j++) {
+                if (useGameTime) {
+                    if (bestSegments[j] == null || (bestSegments[j].gameTime.totalMilliseconds > attemptSegments[j].gameTime.totalMilliseconds)) {
+                        if (attemptSegments[j].gameTime.totalMilliseconds > 0) bestSegments[j] = attemptSegments[j];
+                    }
+
+                } 
+                else {
+                    if (bestSegments[j] == null || (bestSegments[j].realTime.totalMilliseconds > attemptSegments[j].realTime.totalMilliseconds)) {
+                        if (attemptSegments[j].realTime.totalMilliseconds > 0)bestSegments[j] = attemptSegments[j];
+                    }
+                }
+            }
+
+            console.log(bestSegments);
+
+            let time = 0;
+            if (useGameTime) {
+                time = bestSegments.reduce((acc, val) => acc + val.gameTime.totalMilliseconds, 0);
+                
+            } else {
+                time = bestSegments.reduce((acc, val) => acc + val.realTime.totalMilliseconds, 0)
+            }
+            
+            if (time > 0) {
+                data.push({
+                    Date: attempt.started.toLocaleDateString(),
+                    Time: time
+                });
             }
         }
 
