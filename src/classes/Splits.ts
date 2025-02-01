@@ -276,13 +276,24 @@ class Splits {
     private getPlaytimeGraphData(): any[] {
         const data: any[] = [];
 
+        let currentDate = this.attempts[0].started;
+        let currentTime = 0;
+
         for (let i = 0; i < this.attempts.length; i++) {
             const attempt = this.attempts[i];
 
-            data.push({
-                Date: attempt.started.toLocaleDateString(),
-                Time: attempt.getAttemptDuration().totalMilliseconds
-            })
+            if (attempt.started.toLocaleDateString() == currentDate.toLocaleDateString()) {
+                currentTime += attempt.getAttemptDuration().totalMilliseconds;
+            }
+            else {
+                data.push({
+                    Date: currentDate.toLocaleDateString(),
+                    Time: currentTime
+                });
+
+                currentDate = attempt.started;
+                currentTime = attempt.getAttemptDuration().totalMilliseconds;
+            }
         }
 
         return data;

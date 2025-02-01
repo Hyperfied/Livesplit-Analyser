@@ -42,10 +42,7 @@ function PlaytimeGraph({ splits, useGameTime }: PlaytimeGraphProps) {
         <XAxis dataKey="Date">
           <Label value="Date" offset={-20} position="insideBottom" />
         </XAxis>
-        <YAxis
-          tick={<TimeSpanTick />}
-          domain={[0, Math.round(splits.firstTime.totalMilliseconds * 1.2)]}
-        />
+        <YAxis tick={<TimeSpanTick />} />
         <Tooltip content={<TimeSpanTooltip />} />
       </LineChart>
     </ResponsiveContainer>
