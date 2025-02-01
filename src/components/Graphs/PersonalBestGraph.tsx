@@ -46,11 +46,13 @@ function PersonalBestGraph({ splits, useGameTime }: PersonalBestGraphProps) {
           tick={<TimeSpanTick />}
           domain={[
             useGameTime
-              ? Math.round(splits.personalBest.gameTime.totalMilliseconds * 0.8)
+              ? Math.round(
+                  splits.personalBest.gameTime.totalMilliseconds * 0.95
+                )
               : Math.round(
-                  splits.personalBest.realTime.totalMilliseconds * 0.8
+                  splits.personalBest.realTime.totalMilliseconds * 0.95
                 ),
-            splits.firstTime.totalMilliseconds,
+            "auto",
           ]}
         />
         <Tooltip content={<TimeSpanTooltip />} />
