@@ -48,6 +48,8 @@
     border-radius: 20px;
     width: 40%;
     height: 90%;
+
+    background-color: white;
 }
 
 .split-stats-times {
@@ -78,6 +80,7 @@
     border-radius: 20px;
     width: 40%;
     height: 90%;
+    background-color: white;
 
 }
 
@@ -88,6 +91,7 @@
     justify-content: space-between;
 
     width: 90%;
+    
 }
 
 .split-stats-bottom {
@@ -110,6 +114,7 @@
     border-radius: 20px;
     width: 85%;
     height: 80%;
+    background-color: white;
 }
 
 .split-stats-graphs-header {
