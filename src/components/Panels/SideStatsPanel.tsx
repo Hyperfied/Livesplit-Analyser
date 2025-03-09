@@ -8,8 +8,8 @@ interface SideStatsPanelProps {
 
 function SideStatsPanel({ splits }: SideStatsPanelProps) {
   return (
-    <div className="split-stats-side">
-      <h1>Stats</h1>
+    <div className="flex flex-col w-4/10 h-9/10 items-center justify-evenly border-2 rounded-lg bg-white">
+      <h1 className="text-4xl font-bold">Stats</h1>
       <Stat
         title="Total Type Played"
         value={splits.totalTimePlayed.toString(true, true)}

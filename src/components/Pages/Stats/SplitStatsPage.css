@@ -22,30 +22,6 @@
 }
 
 
-.split-stats-time {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-
-    width: 33%;
-
-}
-
-.split-stats-side {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-
-    border: 2px solid black;
-    border-radius: 20px;
-    width: 40%;
-    height: 90%;
-    background-color: white;
-
-}
-
 .split-stats-stat {
     display: flex;
     flex-direction: row;
