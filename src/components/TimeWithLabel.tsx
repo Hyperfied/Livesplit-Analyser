@@ -6,9 +6,9 @@ function TimeWithLabel({
   label: string;
 }) {
   return (
-    <div className="split-stats-time">
-      <h1>{timeString}</h1>
-      <h3>{label}</h3>
+    <div className="flex flex-col items-center justify-center w-1/3">
+      <h1 className="text-4xl font-bold">{timeString}</h1>
+      <h3 className="text-xl">{label}</h3>
     </div>
   );
 }
