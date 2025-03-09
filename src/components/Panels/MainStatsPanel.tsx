@@ -1,15 +1,11 @@
-import "./SplitStatsPage.css";
-import Splits from "../classes/Splits";
+import Splits from "../../classes/Splits";
 
-interface SplitStatsMainStatsPanelProps {
+interface MainStatsPanelProps {
   splits: Splits;
   useGameTime: boolean;
 }
 
-function SplitStatsMainStatsPanel({
-  splits,
-  useGameTime,
-}: SplitStatsMainStatsPanelProps) {
+function MainStatsPanel({ splits, useGameTime }: MainStatsPanelProps) {
   return (
     <div className="split-stats-main">
       <h1>{splits.gameName}</h1>
@@ -38,4 +34,4 @@ function SplitStatsMainStatsPanel({
   );
 }
 
-export default SplitStatsMainStatsPanel;
+export default MainStatsPanel;

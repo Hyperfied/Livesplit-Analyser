@@ -1,21 +1,17 @@
 import { useState } from "react";
-import Splits from "../classes/Splits";
+import Splits from "../../classes/Splits";
 
-import PersonalBestGraph from "./Graphs/PersonalBestGraph";
-import SumOfBestGraph from "./Graphs/SumOfBestGraph";
+import PersonalBestGraph from "../Graphs/PersonalBestGraph";
+import SumOfBestGraph from "../Graphs/SumOfBestGraph";
 
-import "./SplitStatsPage.css";
-import PlaytimeGraph from "./Graphs/PlaytimeGraph";
+import PlaytimeGraph from "../Graphs/PlaytimeGraph";
 
-interface SplitStatsGraphsPanelProps {
+interface GraphsPanelProps {
   splits: Splits;
   useGameTime: boolean;
 }
 
-function SplitStatsGraphPanel({
-  splits,
-  useGameTime,
-}: SplitStatsGraphsPanelProps) {
+function GraphsPanel({ splits, useGameTime }: GraphsPanelProps) {
   const [graphType, setGraphType] = useState("pb");
 
   const onSelect = (event: any) => {
@@ -48,4 +44,4 @@ function SplitStatsGraphPanel({
   );
 }
 
-export default SplitStatsGraphPanel;
+export default GraphsPanel;

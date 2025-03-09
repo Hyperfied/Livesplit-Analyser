@@ -1,10 +1,10 @@
 import "./SplitStatsPage.css";
 import React, { useState } from "react";
-import Splits from "../classes/Splits";
+import Splits from "../../../classes/Splits";
 
-import SplitStatsMainPanelStats from "./SplitsStatsMainStatsPanel";
-import SplitStatsSidePanelStats from "./SplitStatsSideStatsPanel";
-import SplitStatsGraphPanel from "./SplitsStatsGraphsPanel";
+import SplitStatsMainPanelStats from "../../Panels/MainStatsPanel";
+import SplitStatsSidePanelStats from "../../Panels/SideStatsPanel";
+import GraphsPanel from "../../Panels/GraphsPanel";
 
 interface SplitStatsPageProps {
   splits: Splits;
@@ -19,7 +19,7 @@ function SplitStatsPage({ splits, useGameTime }: SplitStatsPageProps) {
         <SplitStatsSidePanelStats splits={splits} />
       </div>
       <div className="split-stats-bottom">
-        <SplitStatsGraphPanel splits={splits} useGameTime={useGameTime} />
+        <GraphsPanel splits={splits} useGameTime={useGameTime} />
       </div>
     </div>
   );
