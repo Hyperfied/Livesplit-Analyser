@@ -5,7 +5,7 @@ function NavBar() {
       className="flex items-center justify-between w-full z-1000 fixed bg-white px-5 py-5 shadow-lg"
     >
       <div className="cursor-pointer select-none">
-        <h1 className="text-4xl font-bold">Split Stats</h1>
+        <h1 className="text-4xl font-bold">SplitStats</h1>
       </div>
     </div>
   );
