@@ -1,11 +1,11 @@
-import "./NavBar.css";
-import React from "react";
-
 function NavBar() {
   return (
-    <div className="nav-bar" onClick={() => window.location.reload()}>
-      <div className="nav-bar-block">
-        <h1>Split Stats</h1>
+    <div
+      onClick={() => window.location.reload()}
+      className="flex items-center justify-between w-full z-1000 fixed bg-white px-5 py-5 shadow-lg"
+    >
+      <div className="cursor-pointer select-none">
+        <h1 className="text-4xl font-bold">Split Stats</h1>
       </div>
     </div>
   );
