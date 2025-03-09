@@ -1,5 +1,3 @@
-import "./SplitStatsPage.css";
-import React, { useState } from "react";
 import Splits from "../../../classes/Splits";
 
 import SplitStatsMainPanelStats from "../../Panels/MainStatsPanel";
@@ -13,12 +11,15 @@ interface SplitStatsPageProps {
 
 function SplitStatsPage({ splits, useGameTime }: SplitStatsPageProps) {
   return (
-    <div className={`split-stats-page`} id="statspage">
-      <div className="split-stats-top">
+    <div
+      id="statspage"
+      className="h-full w-full flex flex-col items-center justify-evenly"
+    >
+      <div className="flex flex-row w-full h-4/10 justify-evenly items-center">
         <SplitStatsMainPanelStats splits={splits} useGameTime={useGameTime} />
         <SplitStatsSidePanelStats splits={splits} />
       </div>
-      <div className="split-stats-bottom">
+      <div className="flex flex-row w-full h-6/10 justify-evenly items-center">
         <GraphsPanel splits={splits} useGameTime={useGameTime} />
       </div>
     </div>
