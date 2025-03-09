@@ -13,7 +13,7 @@ function SplitStatsPage({ splits, useGameTime }: SplitStatsPageProps) {
   return (
     <div
       id="statspage"
-      className="h-full w-full flex flex-col items-center justify-evenly"
+      className="h-full w-full flex flex-col items-center justify-evenly pt-[5%]"
     >
       <div className="flex flex-row w-full h-4/10 justify-evenly items-center">
         <SplitStatsMainPanelStats splits={splits} useGameTime={useGameTime} />
