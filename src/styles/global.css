@@ -1,1 +1,15 @@
 @import "tailwindcss";
+
+@font-face {
+    font-family: "Lil Grotestk";
+    src: url("../assets/LilGrotesk-Regular.otf");
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Lil Grotestk";
+    src: url("../assets/LilGrotesk-Bold.otf");
+    font-weight: bold;
+    font-style: normal;
+}
