@@ -1,5 +1,7 @@
 import Splits from "../../classes/Splits";
 
+import TimeWithLabel from "../TimeWithLabel";
+
 interface MainStatsPanelProps {
   splits: Splits;
   useGameTime: boolean;
@@ -12,24 +14,24 @@ function MainStatsPanel({ splits, useGameTime }: MainStatsPanelProps) {
       <h2>{splits.category}</h2>
       <div className="split-stats-times">
         {useGameTime && (
-          <div className="split-stats-time">
-            <h1>{splits.personalBest.gameTime.toString(true, false)}</h1>
-            <h3>Game Time</h3>
-          </div>
+          <TimeWithLabel
+            timeString={splits.personalBest.gameTime.toString(true, false)}
+            label="Game Time"
+          />
         )}
-        <div className="split-stats-time">
-          <h1>{splits.personalBest.realTime.toString(true, false)}</h1>
-          <h3>Real Time</h3>
-        </div>
+        <TimeWithLabel
+          timeString={splits.personalBest.realTime.toString(true, false)}
+          label="Real Time"
+        />
       </div>
-      <div className="split-stats-time">
-        <h1>
-          {useGameTime
+      <TimeWithLabel
+        timeString={
+          useGameTime
             ? splits.sumOfBest.gameTime.toString(true, false)
-            : splits.sumOfBest.realTime.toString(true, false)}
-        </h1>
-        <h3>Sum of Best</h3>
-      </div>
+            : splits.sumOfBest.realTime.toString(true, false)
+        }
+        label="Sum of Best"
+      />
     </div>
   );
 }
