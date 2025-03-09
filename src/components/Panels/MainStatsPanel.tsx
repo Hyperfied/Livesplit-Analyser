@@ -9,10 +9,10 @@ interface MainStatsPanelProps {
 
 function MainStatsPanel({ splits, useGameTime }: MainStatsPanelProps) {
   return (
-    <div className="split-stats-main">
-      <h1>{splits.gameName}</h1>
-      <h2>{splits.category}</h2>
-      <div className="split-stats-times">
+    <div className="flex flex-col items-center justify-center gap-5 text-center border-2 rounded-lg w-4/10 h-9/10 bg-white">
+      <h1 className="text-4xl font-bold">{splits.gameName}</h1>
+      <h2 className="text-2xl font-semibold">{splits.category}</h2>
+      <div className="flex flex-row justify-evenly items-center w-full">
         {useGameTime && (
           <TimeWithLabel
             timeString={splits.personalBest.gameTime.toString(true, false)}
