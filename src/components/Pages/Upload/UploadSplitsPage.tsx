@@ -1,6 +1,5 @@
-import "./UploadSplitsPage.css";
-import React, { useState } from "react";
-import Splits from "../classes/Splits";
+import React from "react";
+import Splits from "../../../classes/Splits";
 
 interface UploadSplitsProps {
   setFile: React.Dispatch<React.SetStateAction<File | null>>;
@@ -46,12 +45,25 @@ function UploadSplitsPage({
   };
 
   return (
-    <div className={`upload-splits-page`}>
-      <div className={`upload-splits`}>
-        <h1>Select your Splits</h1>
-        <form onSubmit={handleSubmit}>
-          <input type="file" onChange={handleFileChange} />
-          <button type="submit">Analyse</button>
+    <div className="flex h-full w-full justify-center items-center">
+      <div
+        className={
+          "flex flex-col items-center justify-center h-1/3 w-3/10 border-2 border-black rounded-lg p-20 text-center bg-white absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 gap-10"
+        }
+      >
+        <h1 className="text-4xl font-bold">Select your Splits</h1>
+        <form onSubmit={handleSubmit} className="flex flex-col gap-5">
+          <input
+            type="file"
+            onChange={handleFileChange}
+            className="text-lg file:bg-stone-200 file:border-0 file:rounded-full file:px-2 file:py-1 file:font-semibold file:text-lg cursor-pointer hover:file:bg-stone-300"
+          />
+          <button
+            type="submit"
+            className="text-lg bg-stone-200 border-0 rounded-full px-2 py-1 font-semibold cursor-pointer hover:bg-stone-300"
+          >
+            Analyse
+          </button>
         </form>
       </div>
     </div>

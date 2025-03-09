@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import "./App.css";
-import Splits from "../classes/Splits";
+import Splits from "./classes/Splits";
 
-import UploadSplitsPage from "./UploadSplitsPage";
-import SplitStatsPage from "./SplitStatsPage";
-import NavBar from "./NavBar";
+import UploadSplitsPage from "./components/Pages/Upload/UploadSplitsPage";
+import SplitStatsPage from "./components/Pages/Stats/SplitStatsPage";
+import NavBar from "./components/NavBar/NavBar";
 
 function App() {
   const [file, setFile] = useState<File | null>(null);

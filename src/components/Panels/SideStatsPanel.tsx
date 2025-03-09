@@ -1,26 +1,24 @@
-import "./SplitStatsPage.css";
+import Splits from "../../classes/Splits";
 
-import Splits from "../classes/Splits";
+import Stat from "../Stat";
 
-import SplitStatsStat from "./SplitStatsStat";
-
-interface SplitStatsSideStatsPanelProps {
+interface SideStatsPanelProps {
   splits: Splits;
 }
 
-function SplitStatsSideStatsPanel({ splits }: SplitStatsSideStatsPanelProps) {
+function SideStatsPanel({ splits }: SideStatsPanelProps) {
   return (
-    <div className="split-stats-side">
-      <h1>Stats</h1>
-      <SplitStatsStat
+    <div className="flex flex-col w-4/10 h-9/10 items-center justify-evenly border-2 rounded-lg bg-white">
+      <h1 className="text-4xl font-bold">Stats</h1>
+      <Stat
         title="Total Type Played"
         value={splits.totalTimePlayed.toString(true, true)}
       />
-      <SplitStatsStat
+      <Stat
         title="Runs Completed/Uncompleted"
         value={`${splits.runsCompleted}/${splits.runsNotCompleted}`}
       />
-      <SplitStatsStat
+      <Stat
         title="Completion Ratio"
         value={`${(
           (splits.runsCompleted /
@@ -28,20 +26,17 @@ function SplitStatsSideStatsPanel({ splits }: SplitStatsSideStatsPanelProps) {
           100
         ).toFixed(2)}%`}
       />
-      <SplitStatsStat
+      <Stat
         title="First Run Date"
         value={splits.firstRunDate.toLocaleDateString()}
       />
-      <SplitStatsStat
+      <Stat
         title="Latest Run Date"
         value={splits.latestRunDate.toLocaleDateString()}
       />
-      <SplitStatsStat
-        title="PB Run Date"
-        value={splits.pbRunDate.toLocaleDateString()}
-      />
+      <Stat title="PB Run Date" value={splits.pbRunDate.toLocaleDateString()} />
     </div>
   );
 }
 
-export default SplitStatsSideStatsPanel;
+export default SideStatsPanel;
