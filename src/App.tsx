@@ -7,6 +7,7 @@ import SplitStatsPage from "./components/Pages/SplitStatsPage";
 import NavBar from "./components/NavBar/NavBar";
 
 import SplitsContext from "./classes/SplitsContext";
+import SubsplitsStatsPage from "./components/Pages/SubsplitStatsPage";
 
 function App() {
   const [file, setFile] = useState<File | null>(null);
@@ -33,6 +34,7 @@ function App() {
         setUseGameTime={setUseGameTime}
       />
       {splits && <SplitStatsPage useGameTime={useGameTime} />}
+      {splits && <SubsplitsStatsPage />}
     </SplitsContext.Provider>
   );
 }

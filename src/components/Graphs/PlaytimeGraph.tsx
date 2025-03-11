@@ -9,7 +9,6 @@ import {
   Tooltip,
   TooltipProps,
 } from "recharts";
-import Splits from "../../classes/Splits";
 import { FunctionComponent, useContext } from "react";
 import TimeSpan from "../../classes/TimeSpan";
 import {
