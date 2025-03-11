@@ -82,6 +82,9 @@ class Splits {
 
         let firstTime = new TimeSpan(0);
 
+        firstRunDate = Attempt.fromXML(attemptsTag.children[0]).started;
+        latestRunDate = Attempt.fromXML(attemptsTag.children[attemptsTag.children.length - 1]).started;
+
         for (let i = 0; i < attemptsTag.children.length; i++) {
             const attemptElement = attemptsTag.children[i];
             const attempt = Attempt.fromXML(attemptElement);
@@ -107,14 +110,6 @@ class Splits {
                     personalBest.realTime = attempt.realTime;
                     pbRunDate = attempt.started;
                 }
-            }
-
-            if (attempt.id == 0) {
-                firstRunDate = attempt.started;
-            }
-
-            if (attempt.id == attemptsTag.children.length - 1) {
-                latestRunDate = attempt.started;
             }
 
             if (attempt.realTime.totalMilliseconds > 0 || attempt.gameTime.totalMilliseconds > 0) { runsCompleted++; }
