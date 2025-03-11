@@ -24,7 +24,7 @@ interface PersonalBestGraphProps {
 
 function PersonalBestGraph({ splits, useGameTime }: PersonalBestGraphProps) {
   return (
-    <ResponsiveContainer width="90%" height="70%">
+    <ResponsiveContainer width="90%" height="80%">
       <LineChart
         data={splits.getGraphData("pb", useGameTime)}
         {...{ overflow: "visible" }}

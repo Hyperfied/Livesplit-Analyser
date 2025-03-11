@@ -21,6 +21,15 @@ function GraphsPanel({ splits, useGameTime }: GraphsPanelProps) {
 
   return (
     <div className="flex flex-col w-17/20 h-8/10 items-center justify-center g-5 border-2 rounded-lg bg-white gap-4">
+      {graphType === "pb" && (
+        <PersonalBestGraph splits={splits} useGameTime={useGameTime} />
+      )}
+      {graphType === "sob" && (
+        <SumOfBestGraph splits={splits} useGameTime={useGameTime} />
+      )}
+      {graphType === "playtime" && (
+        <PlaytimeGraph splits={splits} useGameTime={useGameTime} />
+      )}
       <div className="flex items-center justify-between w-9/10">
         <form>
           <select
@@ -33,17 +42,7 @@ function GraphsPanel({ splits, useGameTime }: GraphsPanelProps) {
             <option value="playtime">Playtime over Time</option>
           </select>
         </form>
-        <h1 className="text-4xl font-bold">Graphs</h1>
       </div>
-      {graphType === "pb" && (
-        <PersonalBestGraph splits={splits} useGameTime={useGameTime} />
-      )}
-      {graphType === "sob" && (
-        <SumOfBestGraph splits={splits} useGameTime={useGameTime} />
-      )}
-      {graphType === "playtime" && (
-        <PlaytimeGraph splits={splits} useGameTime={useGameTime} />
-      )}
     </div>
   );
 }

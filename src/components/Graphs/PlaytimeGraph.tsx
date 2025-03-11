@@ -24,7 +24,7 @@ interface PlaytimeGraphProps {
 
 function PlaytimeGraph({ splits, useGameTime }: PlaytimeGraphProps) {
   return (
-    <ResponsiveContainer width="90%" height="70%">
+    <ResponsiveContainer width="90%" height="80%">
       <LineChart
         data={splits.getGraphData("playtime", useGameTime)}
         {...{ overflow: "visible" }}

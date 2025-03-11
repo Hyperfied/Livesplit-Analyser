@@ -24,7 +24,7 @@ interface SumOfBestProps {
 
 function SumOfBestGraph({ splits, useGameTime }: SumOfBestProps) {
   return (
-    <ResponsiveContainer width="90%" height="70%">
+    <ResponsiveContainer width="90%" height="80%">
       <LineChart
         data={splits.getGraphData("sob", useGameTime)}
         {...{ overflow: "visible" }}
