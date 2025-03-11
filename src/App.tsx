@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import "./App.css";
 import Splits from "./classes/Splits";
 
 import UploadSplitsPage from "./components/Pages/UploadSplitsPage";
 import SplitStatsPage from "./components/Pages/SplitStatsPage";
 import NavBar from "./components/NavBar/NavBar";
+
+import SplitsContext from "./classes/SplitsContext";
 
 function App() {
   const [file, setFile] = useState<File | null>(null);
@@ -21,7 +23,7 @@ function App() {
   };
 
   return (
-    <>
+    <SplitsContext.Provider value={splits}>
       <NavBar />
       <UploadSplitsPage
         setFile={setFile}
@@ -30,8 +32,8 @@ function App() {
         scrollToStats={scrollToStats}
         setUseGameTime={setUseGameTime}
       />
-      {splits && <SplitStatsPage splits={splits} useGameTime={useGameTime} />}
-    </>
+      {splits && <SplitStatsPage useGameTime={useGameTime} />}
+    </SplitsContext.Provider>
   );
 }
 

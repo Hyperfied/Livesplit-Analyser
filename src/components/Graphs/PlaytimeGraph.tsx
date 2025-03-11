@@ -10,19 +10,24 @@ import {
   TooltipProps,
 } from "recharts";
 import Splits from "../../classes/Splits";
-import { FunctionComponent } from "react";
+import { FunctionComponent, useContext } from "react";
 import TimeSpan from "../../classes/TimeSpan";
 import {
   NameType,
   ValueType,
 } from "recharts/types/component/DefaultTooltipContent";
+import SplitsContext from "../../classes/SplitsContext";
 
 interface PlaytimeGraphProps {
-  splits: Splits;
   useGameTime: boolean;
 }
 
-function PlaytimeGraph({ splits, useGameTime }: PlaytimeGraphProps) {
+function PlaytimeGraph({ useGameTime }: PlaytimeGraphProps) {
+  const splits = useContext(SplitsContext);
+  if (!splits) {
+    return <div></div>;
+  }
+
   return (
     <ResponsiveContainer width="90%" height="80%">
       <LineChart

@@ -1,13 +1,19 @@
-import Splits from "../../classes/Splits";
+import { useContext } from "react";
 
 import TimeWithLabel from "../TimeWithLabel";
 
+import SplitsContext from "../../classes/SplitsContext";
+
 interface MainStatsPanelProps {
-  splits: Splits;
   useGameTime: boolean;
 }
 
-function MainStatsPanel({ splits, useGameTime }: MainStatsPanelProps) {
+function MainStatsPanel({ useGameTime }: MainStatsPanelProps) {
+  const splits = useContext(SplitsContext);
+
+  if (!splits) {
+    return <div></div>;
+  }
   return (
     <div className="flex flex-col items-center justify-center gap-5 text-center border-2 rounded-lg w-4/10 h-9/10 bg-white">
       <h1 className="text-4xl font-bold">{splits.gameName}</h1>

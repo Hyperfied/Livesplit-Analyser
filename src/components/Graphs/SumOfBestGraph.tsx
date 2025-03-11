@@ -9,20 +9,24 @@ import {
   Tooltip,
   TooltipProps,
 } from "recharts";
-import Splits from "../../classes/Splits";
-import { FunctionComponent } from "react";
+import { FunctionComponent, useContext } from "react";
 import TimeSpan from "../../classes/TimeSpan";
 import {
   NameType,
   ValueType,
 } from "recharts/types/component/DefaultTooltipContent";
+import SplitsContext from "../../classes/SplitsContext";
 
 interface SumOfBestProps {
-  splits: Splits;
   useGameTime: boolean;
 }
 
-function SumOfBestGraph({ splits, useGameTime }: SumOfBestProps) {
+function SumOfBestGraph({ useGameTime }: SumOfBestProps) {
+  const splits = useContext(SplitsContext);
+  if (!splits) {
+    return <div></div>;
+  }
+
   return (
     <ResponsiveContainer width="90%" height="80%">
       <LineChart

@@ -1,12 +1,14 @@
-import Splits from "../../classes/Splits";
+import { useContext } from "react";
+import SplitsContext from "../../classes/SplitsContext";
 
 import Stat from "../Stat";
 
-interface SideStatsPanelProps {
-  splits: Splits;
-}
+function SideStatsPanel() {
+  const splits = useContext(SplitsContext);
+  if (!splits) {
+    return <div></div>;
+  }
 
-function SideStatsPanel({ splits }: SideStatsPanelProps) {
   return (
     <div className="flex flex-col w-4/10 h-9/10 items-center justify-evenly border-2 rounded-lg bg-white">
       <h1 className="text-4xl font-bold">Stats</h1>
