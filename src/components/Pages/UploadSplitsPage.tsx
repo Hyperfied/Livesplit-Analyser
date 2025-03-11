@@ -1,5 +1,5 @@
 import React from "react";
-import Splits from "../../../classes/Splits";
+import Splits from "../../classes/Splits";
 
 interface UploadSplitsProps {
   setFile: React.Dispatch<React.SetStateAction<File | null>>;

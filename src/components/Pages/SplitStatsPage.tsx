@@ -1,8 +1,8 @@
-import Splits from "../../../classes/Splits";
+import Splits from "../../classes/Splits";
 
-import SplitStatsMainPanelStats from "../../Panels/MainStatsPanel";
-import SplitStatsSidePanelStats from "../../Panels/SideStatsPanel";
-import GraphsPanel from "../../Panels/GraphsPanel";
+import SplitStatsMainPanelStats from "../Panels/MainStatsPanel";
+import SplitStatsSidePanelStats from "../Panels/SideStatsPanel";
+import GraphsPanel from "../Panels/GraphsPanel";
 
 interface SplitStatsPageProps {
   splits: Splits;

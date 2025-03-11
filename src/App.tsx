@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import "./App.css";
 import Splits from "./classes/Splits";
 
-import UploadSplitsPage from "./components/Pages/Upload/UploadSplitsPage";
-import SplitStatsPage from "./components/Pages/Stats/SplitStatsPage";
+import UploadSplitsPage from "./components/Pages/UploadSplitsPage";
+import SplitStatsPage from "./components/Pages/SplitStatsPage";
 import NavBar from "./components/NavBar/NavBar";
 
 function App() {
