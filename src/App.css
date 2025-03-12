@@ -4,5 +4,5 @@ html, body, #root {
     font-family: "Lil Grotestk", sans-serif;
     font-kerning: none;
     height: 100%;
-    background-color: rgb(243, 243, 243);
+    background-color: #f3f3f3;
 }
