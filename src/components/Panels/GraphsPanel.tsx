@@ -25,7 +25,7 @@ function GraphsPanel({ useGameTime }: GraphsPanelProps) {
   }
 
   return (
-    <div className="flex flex-col w-17/20 h-8/10 items-center justify-center g-5 border-2 rounded-lg bg-white gap-4">
+    <div className="flex flex-col w-9/10 h-8/10 items-center justify-center g-5 border-2 rounded-lg bg-white gap-4">
       {graphType === "pb" && <PersonalBestGraph useGameTime={useGameTime} />}
       {graphType === "sob" && <SumOfBestGraph useGameTime={useGameTime} />}
       {graphType === "playtime" && <PlaytimeGraph useGameTime={useGameTime} />}
