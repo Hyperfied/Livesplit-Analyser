@@ -10,15 +10,17 @@ import {
 } from "recharts";
 import TimeSpanTick from "./TimeSpanTick";
 import TimeSpanTooltip from "./TimeSpanTooltip";
+import Segment from "../../classes/Segment";
 
 interface SubsplitGraphProps {
-  useGameTime: boolean;
+  useGameTime: boolean,
+  segment: Segment
 }
 
-function SubsplitGraph({ useGameTime }: SubsplitGraphProps) {
+function SubsplitGraph({ useGameTime, segment }: SubsplitGraphProps) {
   return (
-    <ResponsiveContainer width="90%" height="80%">
-      <LineChart>
+    <ResponsiveContainer width="90%" height="100%">
+      <LineChart data={segment.getSegmentTimeGraphData(useGameTime)}>
         <Line
           connectNulls
           type="monotone"
@@ -27,8 +29,8 @@ function SubsplitGraph({ useGameTime }: SubsplitGraphProps) {
           dot={{ r: 1 }}
         />
         <CartesianGrid stroke="#ccc" />
-        <XAxis dataKey="Date">
-          <Label value="Date" offset={-20} position="insideBottom" />
+        <XAxis dataKey="RunId">
+          <Label value="RunId" offset={-20} position="insideBottom" />
         </XAxis>
         <YAxis tick={<TimeSpanTick />} /> {/* TODO: Add domain */}
         <Tooltip content={<TimeSpanTooltip />} />

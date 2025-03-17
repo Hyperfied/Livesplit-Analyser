@@ -93,6 +93,23 @@ class Segment {
         if (splitString.length > 1) return splitString[1]
         return splitString[0]
     }
+
+    public getSegmentTimeGraphData(useGameTime: boolean) : any[] {
+
+        const data: any[] = []
+
+        for (let i = 0; i < this.segmentTimes.length; i++)
+        {
+            if (this.segmentTimes[i].realTime.totalMilliseconds == 0) continue;
+
+            data.push({
+                RunId: this.segmentTimes[i].runID,
+                Time: useGameTime ? this.segmentTimes[i].gameTime.totalMilliseconds : this.segmentTimes[i].realTime.totalMilliseconds
+            })
+        }
+        
+        return data
+    }
 }
 
 export default Segment;
