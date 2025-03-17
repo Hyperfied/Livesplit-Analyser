@@ -144,6 +144,11 @@ class TimeSpan{
             return `${hours}:${minutes}:${seconds}:${milliseconds}`;
         }
     }
+
+    subtract(other: TimeSpan) : TimeSpan
+    {
+        return new TimeSpan(this._milliseconds - other._milliseconds)
+    }
 }
 
 export default TimeSpan;

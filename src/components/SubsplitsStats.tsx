@@ -18,7 +18,7 @@ function SubsplitsStats({currSeg, useGameTime} : SubsplitStatsProps) {
       </div>
       <div className="h-1/5 w-9/10 bg-[#f3f3f3] border-2 flex flex-row">
         <TimeWithLabel label="Best Split" timeString={(useGameTime ? currSeg.bestSegmentGameTime : currSeg.bestSegmentRealTime).toString(true, false)} />
-        <TimeWithLabel label="Possible Time Save" timeString="" />
+        <TimeWithLabel label="Possible Time Save" timeString={(useGameTime ? currSeg.gameTimeOnPB.subtract(currSeg.bestSegmentGameTime) : currSeg.realTimeOnPB.subtract(currSeg.bestSegmentRealTime)).toString(true, false)} />
         <TimeWithLabel label="Average Split" timeString="" />
       </div>
     </div>
