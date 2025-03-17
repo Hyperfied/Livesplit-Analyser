@@ -16,6 +16,8 @@ class Splits {
     public segments: Segment[];
 
     public personalBest: SegmentTime;
+    public personalBestId: number;
+
     public sumOfBest: SegmentTime;
 
     public totalTimePlayed: TimeSpan;
@@ -31,7 +33,7 @@ class Splits {
 
     constructor(gameName: string, category: string, platform: string, usesEmulator: boolean, region: string, offset: TimeSpan, attempts: Attempt[], segments: Segment[], 
         personalBest: SegmentTime, sumOfBest: SegmentTime, totalTimePlayed: TimeSpan, runsCompleted: number, runsNotCompleted: number, firstRunDate: Date, 
-        latestRunDate: Date, pbRunDate: Date, firstTime: TimeSpan) {
+        latestRunDate: Date, pbRunDate: Date, firstTime: TimeSpan, personalBestId: number) {
         this.gameName = gameName;
         this.category = category;
         this.platform = platform;
@@ -42,6 +44,8 @@ class Splits {
         this.segments = segments;
 
         this.personalBest = personalBest;
+        this.personalBestId = personalBestId
+
         this.sumOfBest = sumOfBest;
 
         this.totalTimePlayed = totalTimePlayed;
@@ -70,6 +74,7 @@ class Splits {
         const attemptsTag = xml.getElementsByTagName('AttemptHistory')[0];
 
         let personalBest = new SegmentTime(NaN, new TimeSpan(999999999999), new TimeSpan(999999999999));
+        let personalBestId = -1
 
         let totalTimePlayed = new TimeSpan(0);
 
@@ -97,6 +102,7 @@ class Splits {
                 if (attempt.gameTime.totalMilliseconds < personalBest.gameTime.totalMilliseconds) {
                     personalBest.gameTime = attempt.gameTime;
                     personalBest.realTime = attempt.realTime;
+                    personalBestId = attempt.id;
                     pbRunDate = attempt.started;
                 }
             }
@@ -108,6 +114,7 @@ class Splits {
                 if (attempt.realTime.totalMilliseconds < personalBest.realTime.totalMilliseconds) {
                     personalBest.gameTime = attempt.gameTime;
                     personalBest.realTime = attempt.realTime;
+                    personalBestId = attempt.id;
                     pbRunDate = attempt.started;
                 }
             }
@@ -142,7 +149,7 @@ class Splits {
         let sumOfBest = new SegmentTime(NaN, sumOfBestRealTime, sumOfBestGameTime);
 
         return new Splits(gameName, category, platform, usesEmulator, region, offset, attempts, segments, personalBest, sumOfBest, totalTimePlayed, 
-            runsCompleted, runsNotCompleted, firstRunDate, latestRunDate, pbRunDate, firstTime);
+            runsCompleted, runsNotCompleted, firstRunDate, latestRunDate, pbRunDate, firstTime, personalBestId);
     }
 
     private getAttemptSegments(attempt: Attempt): SegmentTime[] {

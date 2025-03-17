@@ -22,7 +22,7 @@ function SubsplitsPanel({useGameTime} : SubsplitsPanelProps) {
     <div className="flex h-3/4 w-9/10 border-2 rounded-lg bg-white">
         <div className="h-full w-1/3 border-r-2 overflow-auto">
           {splits.segments.map(segment => <SubsplitItem segment={segment} name={segment.getName()} 
-          time={(useGameTime ? segment.gameTimeOnPB : segment.realTimeOnPB).toString(true, false)} 
+          time={(useGameTime ? segment.getSegmentTime(splits.personalBestId).gameTime : segment.getSegmentTime(splits.personalBestId).realTime).toString(true, false)} 
           setCurrentSegment={setCurrentSegment}/>)
           }
         </div>
