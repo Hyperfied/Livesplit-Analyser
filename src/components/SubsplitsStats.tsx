@@ -2,7 +2,7 @@ import Segment from "../classes/Segment";
 import TimeWithLabel from "./TimeWithLabel";
 
 interface SubsplitStatsProps {
-  currSeg: Segment | null,
+  currSeg: Segment | null | undefined,
   useGameTime: boolean
 }
 

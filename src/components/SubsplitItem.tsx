@@ -3,7 +3,7 @@ import Segment from "../classes/Segment"
 interface SubsplitItemProps {
     name: string,
     time: string,
-    setCurrentSegment: React.Dispatch<React.SetStateAction<Segment | null>>
+    setCurrentSegment: React.Dispatch<React.SetStateAction<Segment | null | undefined>>
 }
 
 function SubsplitItem({name, time, setCurrentSegment}: SubsplitItemProps) {

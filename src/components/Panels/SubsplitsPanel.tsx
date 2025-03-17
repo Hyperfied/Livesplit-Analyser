@@ -12,9 +12,9 @@ interface SubsplitsPanelProps {
 function SubsplitsPanel({useGameTime} : SubsplitsPanelProps) {
   const splits = useContext(SplitsContext)
 
-  const [currentSegment, setCurrentSegment] = useState<Segment | null>(null);
+  const [currentSegment, setCurrentSegment] = useState<Segment | null | undefined>(splits?.segments[0]);
 
-  if (!splits) {
+  if (!splits || splits == undefined) {
     return <div></div>
   }
 
