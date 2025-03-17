@@ -189,6 +189,8 @@ class Splits {
         const data: any[] = [];
         
         let currentPB = new TimeSpan(99999999999);
+        
+        let firstCompleted = false;
 
         for (let i = 0; i < this.attempts.length; i++) {
             const attempt = this.attempts[i];
@@ -201,8 +203,10 @@ class Splits {
                         Date: attempt.started.toLocaleDateString(),
                         Time: currentPB.totalMilliseconds
                     });
+
+                    firstCompleted = true;
                 }
-                else {
+                else if (!firstCompleted) {
                     data.push({
                         Date: attempt.started.toLocaleDateString(),
                         Time: null
@@ -217,8 +221,10 @@ class Splits {
                         Date: attempt.started.toLocaleDateString(),
                         Time: currentPB.totalMilliseconds
                     });
+
+                    firstCompleted = true;
                 }
-                else {
+                else if (!firstCompleted) {
                     data.push({
                         Date: attempt.started.toLocaleDateString(),
                         Time: null
