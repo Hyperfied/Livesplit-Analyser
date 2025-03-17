@@ -67,7 +67,6 @@ class Segment {
     public getSegmentTime(runID: number): SegmentTime {
         const segmentTime = this.segmentTimes.find((segmentTime) => segmentTime.runID === runID);
         if (segmentTime == undefined) { 
-            console.log("Undefined")
             return new SegmentTime(NaN, new TimeSpan(0), new TimeSpan(0))
         }
         return segmentTime

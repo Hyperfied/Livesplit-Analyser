@@ -254,8 +254,6 @@ class Splits {
                 }
             }
 
-            console.log(bestSegments);
-
             let time = 0;
             if (useGameTime) {
                 time = bestSegments.reduce((acc, val) => acc + val.gameTime.totalMilliseconds, 0);
@@ -263,6 +261,8 @@ class Splits {
             } else {
                 time = bestSegments.reduce((acc, val) => acc + val.realTime.totalMilliseconds, 0)
             }
+
+            if (bestSegments.length != this.segments.length) { continue }
             
             if (time > 0) {
                 data.push({
