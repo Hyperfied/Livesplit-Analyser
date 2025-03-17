@@ -24,7 +24,13 @@ function SubsplitGraph({ useGameTime, segment }: SubsplitGraphProps) {
         data={segment.getSegmentTimeGraphData(useGameTime)}
         {...{ overflow: "visible" }}
       >
-        <Line type="monotone" dataKey="Time" stroke="#8884d8" dot={{ r: 1 }} />
+        <Line
+          connectNulls
+          type="monotone"
+          dataKey="Time"
+          stroke="#8884d8"
+          dot={{ r: 1 }}
+        />
         <CartesianGrid stroke="#ccc" />
         <XAxis dataKey="RunId">
           <Label value="RunId" offset={-20} position="insideBottom" />

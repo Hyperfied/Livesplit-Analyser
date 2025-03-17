@@ -97,14 +97,20 @@ class Segment {
     public getSegmentTimeGraphData(useGameTime: boolean) : any[] {
 
         const data: any[] = []
+        let firstCompleted = false;
 
         for (let i = 0; i < this.segmentTimes.length; i++)
         {
-            if (this.segmentTimes[i].realTime.totalMilliseconds == 0) continue;
+            let Time = null;
+            if (this.segmentTimes[i].realTime.totalMilliseconds > 10) {
+                Time =  useGameTime ? this.segmentTimes[i].gameTime.totalMilliseconds : this.segmentTimes[i].realTime.totalMilliseconds;
+                if (!firstCompleted) firstCompleted = true;
+            }
 
+            if (!firstCompleted) continue;
             data.push({
                 RunId: this.segmentTimes[i].runID,
-                Time: useGameTime ? this.segmentTimes[i].gameTime.totalMilliseconds : this.segmentTimes[i].realTime.totalMilliseconds
+                Time: Time
             })
         }
         
