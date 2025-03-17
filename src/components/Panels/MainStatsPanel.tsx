@@ -30,14 +30,28 @@ function MainStatsPanel({ useGameTime }: MainStatsPanelProps) {
           label="Real Time"
         />
       </div>
-      <TimeWithLabel
-        timeString={
-          useGameTime
-            ? splits.sumOfBest.gameTime.toString(true, false)
-            : splits.sumOfBest.realTime.toString(true, false)
-        }
-        label="Sum of Best"
-      />
+      <div className="flex flex-row justify-evenly items-center w-full">
+        <TimeWithLabel
+          timeString={
+            useGameTime
+              ? splits.sumOfBest.gameTime.toString(true, false)
+              : splits.sumOfBest.realTime.toString(true, false)
+          }
+          label="Sum of Best"
+        />
+        <TimeWithLabel
+          timeString={
+            useGameTime
+              ? splits.personalBest.gameTime
+                  .subtract(splits.sumOfBest.gameTime)
+                  .toString(true, false)
+              : splits.personalBest.realTime
+                  .subtract(splits.sumOfBest.realTime)
+                  .toString(true, false)
+          }
+          label="Possible Time Save"
+        />
+      </div>
     </div>
   );
 }
