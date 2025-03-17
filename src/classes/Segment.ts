@@ -80,8 +80,8 @@ class Segment {
             realTime.addMilliseconds(segmentTime.realTime.totalMilliseconds);
             gameTime.addMilliseconds(segmentTime.gameTime.totalMilliseconds);
         }
-        const realTimeSpan = new TimeSpan(realTime.totalMilliseconds / this.segmentTimes.length);
-        const gameTimeSpan = new TimeSpan(gameTime.totalMilliseconds / this.segmentTimes.length);
+        const realTimeSpan = new TimeSpan(Math.floor(realTime.totalMilliseconds / this.segmentTimes.length));
+        const gameTimeSpan = new TimeSpan(Math.floor(gameTime.totalMilliseconds / this.segmentTimes.length));
 
         return new SegmentTime(NaN, realTimeSpan, gameTimeSpan);
     }
