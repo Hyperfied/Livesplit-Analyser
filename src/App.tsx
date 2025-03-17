@@ -34,7 +34,7 @@ function App() {
         setUseGameTime={setUseGameTime}
       />
       {splits && <SplitStatsPage useGameTime={useGameTime} />}
-      {splits && <SubsplitsStatsPage />}
+      {splits && <SubsplitsStatsPage useGameTime={useGameTime}/>}
     </SplitsContext.Provider>
   );
 }
