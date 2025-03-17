@@ -1,5 +1,6 @@
 import TimeSpan from "./TimeSpan";
 import SegmentTime from "./SegmentTIme";
+import { split } from "postcss/lib/list";
 
 class Segment {
  
@@ -79,6 +80,15 @@ class Segment {
         const gameTimeSpan = new TimeSpan(gameTime.totalMilliseconds / this.segmentTimes.length);
 
         return new SegmentTime(NaN, realTimeSpan, gameTimeSpan);
+    }
+
+    public getName(): string {
+        let currentString = this.name
+        console.log(currentString)
+        if (currentString[0] == "-") currentString = currentString.slice(1)
+        const splitString = currentString.split("}");
+        if (splitString.length > 1) return splitString[1]
+        return splitString[0]
     }
 }
 
