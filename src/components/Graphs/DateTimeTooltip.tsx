@@ -6,7 +6,7 @@ import {
 
 import TimeSpan from "../../classes/TimeSpan";
 
-const TimeSpanTooltip = ({
+const DateTimeTooltip = ({
   active,
   payload,
   label,
@@ -29,4 +29,4 @@ const TimeSpanTooltip = ({
   return null;
 };
 
-export default TimeSpanTooltip;
+export default DateTimeTooltip;

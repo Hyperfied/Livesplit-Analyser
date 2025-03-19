@@ -11,7 +11,7 @@ import {
 import { useContext } from "react";
 import SplitsContext from "../../classes/SplitsContext";
 
-import TimeSpanTooltip from "./TimeSpanTooltip";
+import DateTimeTooltip from "./DateTimeTooltip";
 import TimeSpanTick from "./TimeSpanTick";
 import DateTick from "./DateTick";
 
@@ -57,7 +57,7 @@ function SumOfBestGraph({ useGameTime }: SumOfBestProps) {
             "auto",
           ]}
         />
-        <Tooltip content={<TimeSpanTooltip />} />
+        <Tooltip content={<DateTimeTooltip />} />
       </LineChart>
     </ResponsiveContainer>
   );

@@ -9,7 +9,7 @@ import {
   Tooltip,
 } from "recharts";
 import TimeSpanTick from "./TimeSpanTick";
-import TimeSpanTooltip from "./TimeSpanTooltip";
+import DateTimeTooltip from "./DateTimeTooltip";
 import Segment from "../../classes/Segment";
 
 interface SubsplitGraphProps {
@@ -45,7 +45,7 @@ function SubsplitGraph({ useGameTime, segment }: SubsplitGraphProps) {
           ]}
         />
 
-        <Tooltip content={<TimeSpanTooltip />} />
+        <Tooltip content={<DateTimeTooltip />} />
       </LineChart>
     </ResponsiveContainer>
   );

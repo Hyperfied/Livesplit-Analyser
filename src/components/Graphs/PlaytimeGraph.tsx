@@ -11,7 +11,7 @@ import {
 import { useContext } from "react";
 import SplitsContext from "../../classes/SplitsContext";
 
-import TimeSpanTooltip from "./TimeSpanTooltip";
+import DateTimeTooltip from "./DateTimeTooltip";
 import TimeSpanTick from "./TimeSpanTick";
 
 interface PlaytimeGraphProps {
@@ -42,7 +42,7 @@ function PlaytimeGraph({ useGameTime }: PlaytimeGraphProps) {
           <Label value="Date" offset={-20} position="insideBottom" />
         </XAxis>
         <YAxis tick={<TimeSpanTick />} />
-        <Tooltip content={<TimeSpanTooltip />} />
+        <Tooltip content={<DateTimeTooltip />} />
       </LineChart>
     </ResponsiveContainer>
   );

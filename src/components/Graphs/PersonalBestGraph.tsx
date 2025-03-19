@@ -12,7 +12,7 @@ import { useContext } from "react";
 
 import SplitsContext from "../../classes/SplitsContext";
 
-import TimeSpanTooltip from "./TimeSpanTooltip";
+import DateTimeTooltip from "./DateTimeTooltip";
 import TimeSpanTick from "./TimeSpanTick";
 import DateTick from "./DateTick";
 
@@ -62,7 +62,7 @@ function PersonalBestGraph({ useGameTime }: PersonalBestGraphProps) {
             "auto",
           ]}
         />
-        <Tooltip content={<TimeSpanTooltip />} />
+        <Tooltip content={<DateTimeTooltip />} />
       </LineChart>
     </ResponsiveContainer>
   );
