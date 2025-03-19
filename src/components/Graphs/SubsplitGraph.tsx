@@ -11,6 +11,10 @@ import {
 import TimeSpanTick from "./TimeSpanTick";
 import DateTimeTooltip from "./DateTimeTooltip";
 import Segment from "../../classes/Segment";
+import { useContext } from "react";
+
+import SplitsContext from "../../classes/SplitsContext";
+import DateTick from "./DateTick";
 
 interface SubsplitGraphProps {
   useGameTime: boolean;
@@ -18,10 +22,15 @@ interface SubsplitGraphProps {
 }
 
 function SubsplitGraph({ useGameTime, segment }: SubsplitGraphProps) {
+  const splits = useContext(SplitsContext);
+  if (!splits) {
+    return <div></div>;
+  }
+
   return (
     <ResponsiveContainer width="95%" height="90%">
       <LineChart
-        data={segment.getSegmentTimeGraphData(useGameTime)}
+        data={segment.getSegmentTimeGraphData(useGameTime, splits)}
         {...{ overflow: "visible" }}
       >
         <Line
@@ -32,8 +41,14 @@ function SubsplitGraph({ useGameTime, segment }: SubsplitGraphProps) {
           dot={{ r: 1 }}
         />
         <CartesianGrid stroke="#ccc" />
-        <XAxis dataKey="RunId">
-          <Label value="RunId" offset={-20} position="insideBottom" />
+        <XAxis
+          dataKey="Date"
+          type="number"
+          tick={<DateTick />}
+          tickCount={20}
+          domain={[splits.firstCompletedRunDate.getTime(), "auto"]}
+        >
+          <Label value="Date" offset={-20} position="insideBottom" />
         </XAxis>
         <YAxis
           tick={<TimeSpanTick />}

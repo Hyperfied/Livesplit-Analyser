@@ -1,5 +1,6 @@
 import TimeSpan from "./TimeSpan";
 import SegmentTime from "./SegmentTIme";
+import Splits from "./Splits";
 
 class Segment {
  
@@ -93,27 +94,53 @@ class Segment {
         return splitString[0]
     }
 
-    public getSegmentTimeGraphData(useGameTime: boolean) : any[] {
+    public getSegmentTimeGraphData(useGameTime: boolean, splits: Splits) : any[] {
 
         const data: any[] = []
-        let firstCompleted = false;
+        let currentBestTime = new SegmentTime(NaN, new TimeSpan(9999999), new TimeSpan(9999999));
 
         for (let i = 0; i < this.segmentTimes.length; i++)
         {
-            let Time = null;
-            if (this.segmentTimes[i].realTime.totalMilliseconds > 10) {
-                Time =  useGameTime ? this.segmentTimes[i].gameTime.totalMilliseconds : this.segmentTimes[i].realTime.totalMilliseconds;
-                if (!firstCompleted) firstCompleted = true;
-            }
+            if (useGameTime)
+            {
+                if (currentBestTime.gameTime.totalMilliseconds > this.segmentTimes[i].gameTime.totalMilliseconds) {
+                    if (this.segmentTimes[i].gameTime.totalMilliseconds == 0 || this.segmentTimes[i].runID < 0) continue;
+                    currentBestTime = this.segmentTimes[i];
+                    const attempt = splits.getAttempt(this.segmentTimes[i].runID);
 
-            if (!firstCompleted) continue;
-            data.push({
-                RunId: this.segmentTimes[i].runID,
-                Time: Time
-            })
+                    if (attempt == undefined) continue;
+                    data.push({
+                        Date: attempt.started.getTime(),
+                        Time: currentBestTime.gameTime.totalMilliseconds
+                    })
+                }
+            }
+            else {
+                if (currentBestTime.realTime.totalMilliseconds > this.segmentTimes[i].realTime.totalMilliseconds) {
+                    if (this.segmentTimes[i].realTime.totalMilliseconds == 0 || this.segmentTimes[i].runID < 0) continue;
+                    currentBestTime = this.segmentTimes[i];
+                    const attempt = splits.getAttempt(this.segmentTimes[i].runID);
+
+                    if (attempt == undefined) continue;
+                    data.push({
+                        Date: attempt.started.getTime(),
+                        Time: currentBestTime.realTime.totalMilliseconds
+                    })
+            }}
+
+            console.log(currentBestTime)
         }
         
         return data
+    }
+
+    public getFirstSegmentTime(): SegmentTime | undefined {
+        for (let segmentTime of this.segmentTimes) {
+            if (segmentTime.realTime.totalMilliseconds > 10) {
+                return segmentTime
+            }
+        }
+        return undefined;
     }
 }
 

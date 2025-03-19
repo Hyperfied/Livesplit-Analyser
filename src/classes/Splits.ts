@@ -159,6 +159,10 @@ class Splits {
             runsCompleted, runsNotCompleted, firstRunDate, latestRunDate, pbRunDate, firstTime, personalBestId, firstCompletedRunDate);
     }
 
+    public getAttempt(id: number): Attempt | undefined {
+        return this.attempts.find((attempt) => attempt.id === id);
+    }
+
     private getAttemptSegments(attempt: Attempt): SegmentTime[] {
         const segments: SegmentTime[] = [];
 
