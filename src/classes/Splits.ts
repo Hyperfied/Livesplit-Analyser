@@ -273,7 +273,7 @@ class Splits {
             
             if (time > 0) {
                 data.push({
-                    Date: attempt.started.toLocaleDateString(),
+                    Date: attempt.started.getTime(),
                     Time: time
                 });
             }

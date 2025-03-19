@@ -13,6 +13,7 @@ import SplitsContext from "../../classes/SplitsContext";
 
 import TimeSpanTooltip from "./TimeSpanTooltip";
 import TimeSpanTick from "./TimeSpanTick";
+import DateTick from "./DateTick";
 
 interface SumOfBestProps {
   useGameTime: boolean;
@@ -38,7 +39,13 @@ function SumOfBestGraph({ useGameTime }: SumOfBestProps) {
           dot={{ r: 1 }}
         />
         <CartesianGrid stroke="#ccc" />
-        <XAxis dataKey="Date">
+        <XAxis
+          dataKey="Date"
+          type="number"
+          tick={<DateTick />}
+          tickCount={20}
+          domain={[splits.firstCompletedRunDate.getTime(), "auto"]}
+        >
           <Label value="Date" offset={-20} position="insideBottom" />
         </XAxis>
         <YAxis
