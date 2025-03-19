@@ -30,10 +30,11 @@ class Splits {
     public pbRunDate: Date;
 
     public firstTime: TimeSpan;
+    public firstCompletedRunDate: Date;
 
     constructor(gameName: string, category: string, platform: string, usesEmulator: boolean, region: string, offset: TimeSpan, attempts: Attempt[], segments: Segment[], 
         personalBest: SegmentTime, sumOfBest: SegmentTime, totalTimePlayed: TimeSpan, runsCompleted: number, runsNotCompleted: number, firstRunDate: Date, 
-        latestRunDate: Date, pbRunDate: Date, firstTime: TimeSpan, personalBestId: number) {
+        latestRunDate: Date, pbRunDate: Date, firstTime: TimeSpan, personalBestId: number, firstCompletedRunDate: Date) {
         this.gameName = gameName;
         this.category = category;
         this.platform = platform;
@@ -58,6 +59,8 @@ class Splits {
         this.pbRunDate = pbRunDate;
 
         this.firstTime = firstTime
+        this.firstCompletedRunDate = firstCompletedRunDate;
+
     }
 
     public static fromXML (xml: Document): Splits {
@@ -86,6 +89,7 @@ class Splits {
         let pbRunDate = new Date();
 
         let firstTime = new TimeSpan(0);
+        let firstCompletedRunDate = new Date();
 
         firstRunDate = Attempt.fromXML(attemptsTag.children[0]).started;
         latestRunDate = Attempt.fromXML(attemptsTag.children[attemptsTag.children.length - 1]).started;
@@ -97,6 +101,7 @@ class Splits {
             if (attempt.gameTime.totalMilliseconds > 0) {
                 if (firstTime.totalMilliseconds == 0) {
                     firstTime = attempt.gameTime;
+                    firstCompletedRunDate = attempt.started;
                 }
 
                 if (attempt.gameTime.totalMilliseconds < personalBest.gameTime.totalMilliseconds) {
@@ -108,7 +113,9 @@ class Splits {
             }
             else if (attempt.realTime.totalMilliseconds > 0) {
                 if (firstTime.totalMilliseconds == 0) {
-                    firstTime = attempt.gameTime;
+                    firstTime = attempt.realTime;
+                    firstCompletedRunDate = attempt.started;
+                    console.log(firstCompletedRunDate);
                 }
 
                 if (attempt.realTime.totalMilliseconds < personalBest.realTime.totalMilliseconds) {
@@ -149,7 +156,7 @@ class Splits {
         let sumOfBest = new SegmentTime(NaN, sumOfBestRealTime, sumOfBestGameTime);
 
         return new Splits(gameName, category, platform, usesEmulator, region, offset, attempts, segments, personalBest, sumOfBest, totalTimePlayed, 
-            runsCompleted, runsNotCompleted, firstRunDate, latestRunDate, pbRunDate, firstTime, personalBestId);
+            runsCompleted, runsNotCompleted, firstRunDate, latestRunDate, pbRunDate, firstTime, personalBestId, firstCompletedRunDate);
     }
 
     private getAttemptSegments(attempt: Attempt): SegmentTime[] {
@@ -198,32 +205,32 @@ class Splits {
                     currentPB = attempt.gameTime;
                     
                     data.push({
-                        Date: attempt.started.toLocaleDateString(),
+                        Date: attempt.started.getTime(),
                         Time: currentPB.totalMilliseconds
                     });
                 }
-                else {
-                    data.push({
-                        Date: attempt.started.toLocaleDateString(),
-                        Time: null
-                    });
-                }
+                // else {
+                //     data.push({
+                //         Date: attempt.started.getTime(),
+                //         Time: null
+                //     });
+                // }
             }
             else {
                 if (attempt.realTime.totalMilliseconds < currentPB.totalMilliseconds && attempt.realTime.totalMilliseconds > 0) {
                     currentPB = attempt.realTime;
 
                     data.push({
-                        Date: attempt.started.toLocaleDateString(),
+                        Date: attempt.started.getTime(),
                         Time: currentPB.totalMilliseconds
                     });
                 }
-                else {
-                    data.push({
-                        Date: attempt.started.toLocaleDateString(),
-                        Time: null
-                    });
-                }
+                // else {
+                //     data.push({
+                //         Date: attempt.started.getTime(),
+                //         Time: null
+                //     });
+                // }
             }
         }
 
