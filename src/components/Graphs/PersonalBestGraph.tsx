@@ -45,7 +45,10 @@ function PersonalBestGraph({ useGameTime }: PersonalBestGraphProps) {
           type="number"
           tick={<DateTick />}
           tickCount={20}
-          domain={[splits.firstCompletedRunDate.getTime(), "auto"]}
+          domain={[
+            splits.firstCompletedRunDate.getTime(),
+            splits.latestRunDate.getTime(),
+          ]}
         >
           <Label value="Date" offset={-20} position="insideBottom" />
         </XAxis>

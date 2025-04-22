@@ -238,6 +238,11 @@ class Splits {
             }
         }
 
+        data.push({
+            Date: this.latestRunDate.getTime(),
+            Time: useGameTime ? this.personalBest.gameTime.totalMilliseconds : this.personalBest.realTime.totalMilliseconds
+        });
+
         return data;
     }
 
@@ -282,6 +287,11 @@ class Splits {
                 });
             }
         }
+
+        data.push({
+            Date: this.latestRunDate.getTime(),
+            Time: useGameTime ? this.sumOfBest.gameTime.totalMilliseconds : this.sumOfBest.realTime.totalMilliseconds
+        });
 
         return data;
     }
