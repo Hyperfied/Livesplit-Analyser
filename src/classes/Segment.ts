@@ -86,7 +86,7 @@ class Segment {
         return new SegmentTime(NaN, realTimeSpan, gameTimeSpan);
     }
 
-    public getName(): string {
+    public get formattedName(): string {
         let currentString = this.name
         if (currentString[0] == "-") currentString = currentString.slice(1)
         const splitString = currentString.split("}");

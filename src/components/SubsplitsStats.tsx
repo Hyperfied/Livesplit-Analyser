@@ -19,7 +19,7 @@ function SubsplitsStats({ currSeg, useGameTime }: SubsplitStatsProps) {
 
   return (
     <div className="flex flex-col items-center justify-evenly w-full">
-      <h1 className="text-4xl font-bold">{currSeg.getName()}</h1>
+      <h1 className="text-4xl font-bold">{currSeg.formattedName}</h1>
       <div className="h-3/5 w-9/10 bg-[#f3f3f3] border-2 flex flex-row items-center justify-center">
         <SubsplitGraph segment={currSeg} useGameTime={useGameTime} />
       </div>
