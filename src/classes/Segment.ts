@@ -131,6 +131,11 @@ class Segment {
             console.log(currentBestTime)
         }
         
+        data.push({
+            Date: splits.latestRunDate.getTime(),
+            Time: useGameTime ? this.bestSegmentGameTime.totalMilliseconds : this.bestSegmentRealTime.totalMilliseconds
+        })
+
         return data
     }
 
